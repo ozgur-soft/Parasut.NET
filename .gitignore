@@ -1,0 +1,8 @@
+[Bb]in/
+[Oo]bj/
+[Cc]erts/
+[Kk]eys/
+.vs/
+.vscode/
+*.token
+*.config
