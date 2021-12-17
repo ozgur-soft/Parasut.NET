@@ -18,14 +18,16 @@ namespace Parasut {
         List<Parasut.Response.EInvoiceInboxes.EInvoiceInboxesData> ListEInvoiceInboxes(string vkn);
     }
     public class Parasut : IParasut {
-        private const string Endpoint = "https://api.parasut.com/v4/";
+        private string Endpoint { get; set; }
         private string CompanyId { get; set; }
         private string ClientId { get; set; }
         private string ClientSecret { get; set; }
         private string Username { get; set; }
         private string Password { get; set; }
         private string Token { get; set; }
-        public Parasut() { }
+        public Parasut() {
+            Endpoint = "https://api.parasut.com/v4/";
+        }
         public class Request {
             public class Authentication {
                 [JsonPropertyName("client_id")]
