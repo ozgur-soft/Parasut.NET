@@ -177,6 +177,138 @@ namespace Parasut {
                     }
                 }
             }
+            public class EArchive {
+                [JsonPropertyName("data")]
+                public EArchiveData Data { init; get; }
+                public class EArchiveData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public Attributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public Relationships Relationships { init; get; }
+                }
+                public class Attributes {
+                    [JsonPropertyName("vat_withholding_code")]
+                    public string VatWithholdingCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason_code")]
+                    public string VatExemptionReasonCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason")]
+                    public string VatExemptionReason { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public ExciseDutyCode[] ExciseDutyCodes { init; get; }
+                    [JsonPropertyName("internet_sale")]
+                    public InternetSaleData InternetSale { init; get; }
+                    [JsonPropertyName("shipment")]
+                    public ShipmentData Shipment { init; get; }
+                    public class ExciseDutyCode {
+                        [JsonPropertyName("product")]
+                        public int? Product { init; get; }
+                        [JsonPropertyName("sales_excise_duty_code")]
+                        public string SalesExciseDutyCode { init; get; }
+                    }
+                    public class InternetSaleData {
+                        [JsonPropertyName("url")]
+                        public string Url { init; get; }
+                        [JsonPropertyName("payment_type")]
+                        public string PaymentType { init; get; }
+                        [JsonPropertyName("payment_platform")]
+                        public string PaymentPlatform { init; get; }
+                        [JsonPropertyName("payment_date")]
+                        public string PaymentDate { init; get; }
+                    }
+                    public class ShipmentData {
+                        [JsonPropertyName("title")]
+                        public string Title { init; get; }
+                        [JsonPropertyName("name")]
+                        public string Name { init; get; }
+                        [JsonPropertyName("vkn")]
+                        public string VKN { init; get; }
+                        [JsonPropertyName("tckn")]
+                        public string TCKN { init; get; }
+                        [JsonPropertyName("date")]
+                        public string Date { init; get; }
+                    }
+                }
+                public class Relationships {
+                    [JsonPropertyName("sales_invoice")]
+                    public SalesInvoice SalesInvoice { get; set; }
+                }
+                public class SalesInvoice {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceData Data { init; get; }
+                    public class SalesInvoiceData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+            }
+            public class EInvoice {
+                [JsonPropertyName("data")]
+                public EInvoiceData Data { init; get; }
+                public class EInvoiceData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public Attributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public Relationships Relationships { init; get; }
+                }
+                public class Attributes {
+                    [JsonPropertyName("vat_withholding_code")]
+                    public string VatWithholdingCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason_code")]
+                    public string VatExemptionReasonCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason")]
+                    public string VatExemptionReason { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public ExciseDutyCode[] ExciseDutyCodes { init; get; }
+                    [JsonPropertyName("scenario")]
+                    public string Scenario { init; get; }
+                    [JsonPropertyName("to")]
+                    public string To { init; get; }
+                    [JsonPropertyName("custom_requirement_params")]
+                    public CustomRequirementParam CustomRequirementParams { init; get; }
+                    public class ExciseDutyCode {
+                        [JsonPropertyName("product")]
+                        public int? Product { init; get; }
+                        [JsonPropertyName("sales_excise_duty_code")]
+                        public string SalesExciseDutyCode { init; get; }
+                    }
+                    public class CustomRequirementParam {
+                        [JsonPropertyName("integration")]
+                        public IntegrationData Integration { init; get; }
+                        public class IntegrationData {
+                            [JsonPropertyName("data")]
+                            public string Data { init; get; }
+                        }
+                    }
+                }
+                public class Relationships {
+                    [JsonPropertyName("invoice")]
+                    public Invoice Invoice { get; set; }
+                }
+                public class Invoice {
+                    [JsonPropertyName("data")]
+                    public InvoiceData Data { init; get; }
+                    public class InvoiceData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+            }
             public class EArchivePDF {
                 [JsonPropertyName("data")]
                 public EArchivePDFData Data { init; get; }
