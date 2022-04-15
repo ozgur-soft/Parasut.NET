@@ -117,16 +117,56 @@ namespace Parasut {
                     public bool? IsAbroad { init; get; }
                 }
                 public class Relationships {
+                    [JsonPropertyName("category")]
+                    public Category Category { get; set; }
+                    [JsonPropertyName("contact")]
+                    public Contact Contact { get; set; }
                     [JsonPropertyName("details")]
                     public object Details { get; set; }
-                    [JsonPropertyName("contact")]
-                    public object Contact { get; set; }
-                    [JsonPropertyName("category")]
-                    public object Category { get; set; }
                     [JsonPropertyName("tags")]
-                    public object Tags { get; set; }
+                    public Tag[] Tags { get; set; }
                     [JsonPropertyName("sales_offer")]
-                    public object SalesOffer { get; set; }
+                    public SalesOffer SalesOffer { get; set; }
+                }
+                public class Category {
+                    [JsonPropertyName("data")]
+                    public CategoryData Data { init; get; }
+                    public class CategoryData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Contact {
+                    [JsonPropertyName("data")]
+                    public ContactData Data { init; get; }
+                    public class ContactData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Tag {
+                    [JsonPropertyName("data")]
+                    public TagData Data { init; get; }
+                    public class TagData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class SalesOffer {
+                    [JsonPropertyName("data")]
+                    public SalesOfferData Data { init; get; }
+                    public class SalesOfferData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
                 }
             }
             public class EArchivePDF {
