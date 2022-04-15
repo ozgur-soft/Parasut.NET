@@ -13,7 +13,14 @@ namespace Parasut {
         void SetUsername(string username);
         void SetPassword(string password);
         void Authentication();
+        Parasut.Response.SalesInvoice.SalesInvoiceData CreateSalesInvoice(Parasut.Request.SalesInvoice data);
         Parasut.Response.SalesInvoice.SalesInvoiceData ShowSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData DeleteSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData RecoverSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData ArchiveSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData UnarchiveSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id);
+        Parasut.Response.SalesInvoice.SalesInvoiceData ConvertSalesInvoice(string id);
         Parasut.Response.EArchivePDF.EArchivePDFData ShowEArchivePDF(string id);
         Parasut.Response.EInvoicePDF.EInvoicePDFData ShowEInvoicePDF(string id);
         List<Parasut.Response.EInvoiceInboxes.EInvoiceInboxesData> ListEInvoiceInboxes(string vkn);
