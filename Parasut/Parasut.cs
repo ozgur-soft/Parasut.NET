@@ -290,23 +290,103 @@ namespace Parasut {
                 }
                 public class Relationships {
                     [JsonPropertyName("category")]
-                    public object Category { get; set; }
+                    public Category Category { get; set; }
                     [JsonPropertyName("contact")]
-                    public object Contact { get; set; }
+                    public Contact Contact { get; set; }
                     [JsonPropertyName("details")]
-                    public object Details { get; set; }
+                    public Detail[] Details { get; set; }
                     [JsonPropertyName("payments")]
-                    public object Payments { get; set; }
+                    public Payment[] Payments { get; set; }
                     [JsonPropertyName("tags")]
-                    public object Tags { get; set; }
+                    public Tag[] Tags { get; set; }
                     [JsonPropertyName("sales_offer")]
-                    public object SalesOffer { get; set; }
+                    public SalesOffer SalesOffer { get; set; }
                     [JsonPropertyName("sharings")]
-                    public object Sharings { get; set; }
+                    public Sharing[] Sharings { get; set; }
                     [JsonPropertyName("recurrence_plan")]
-                    public object RecurrencePlan { get; set; }
+                    public RecurrencePlan RecurrencePlan { get; set; }
                     [JsonPropertyName("active_e_document")]
                     public ActiveEDocument ActiveEDocument { get; set; }
+                }
+                public class Category {
+                    [JsonPropertyName("data")]
+                    public CategoryData Data { init; get; }
+                    public class CategoryData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Contact {
+                    [JsonPropertyName("data")]
+                    public ContactData Data { init; get; }
+                    public class ContactData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Detail {
+                    [JsonPropertyName("data")]
+                    public DetailData Data { init; get; }
+                    public class DetailData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Payment {
+                    [JsonPropertyName("data")]
+                    public PaymentData Data { init; get; }
+                    public class PaymentData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Tag {
+                    [JsonPropertyName("data")]
+                    public TagData Data { init; get; }
+                    public class TagData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class SalesOffer {
+                    [JsonPropertyName("data")]
+                    public SalesOfferData Data { init; get; }
+                    public class SalesOfferData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class Sharing {
+                    [JsonPropertyName("data")]
+                    public SharingData Data { init; get; }
+                    public class SharingData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class RecurrencePlan {
+                    [JsonPropertyName("data")]
+                    public RecurrencePlanData Data { init; get; }
+                    public class RecurrencePlanData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
                 }
                 public class ActiveEDocument {
                     [JsonPropertyName("data")]
