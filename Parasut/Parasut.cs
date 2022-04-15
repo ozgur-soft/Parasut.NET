@@ -566,6 +566,82 @@ namespace Parasut {
             }
             return null;
         }
+        public Response.SalesInvoice.SalesInvoiceData DeleteSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.SalesInvoice.SalesInvoiceData RecoverSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/recover");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.SalesInvoice.SalesInvoiceData ArchiveSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/archive");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.SalesInvoice.SalesInvoiceData UnarchiveSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/unarchive");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
         public Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id) {
             try {
                 var http = new HttpClient();
