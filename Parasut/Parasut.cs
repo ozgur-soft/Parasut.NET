@@ -551,10 +551,26 @@ namespace Parasut {
             try {
                 var http = new HttpClient();
                 http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var data = new Request.SalesInvoice { Data = new Request.SalesInvoice.SalesInvoiceData { Id = id, Type = "sales_invoices" } };
-                var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") {
-                    Content = new StringContent(JsonString(data), Encoding.UTF8, "application/json")
-                };
+                var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/cancel");
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
                 if (result.Data != null) {
