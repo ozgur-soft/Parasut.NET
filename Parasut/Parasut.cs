@@ -51,6 +51,82 @@ namespace Parasut {
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public Attributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public Relationships Relationships { init; get; }
+                }
+                public class Attributes {
+                    [JsonPropertyName("invoice_id")]
+                    public int? InvoiceId { init; get; }
+                    [JsonPropertyName("invoice_series")]
+                    public string InvoiceSeries { init; get; }
+                    [JsonPropertyName("item_type")]
+                    public string ItemType { init; get; }
+                    [JsonPropertyName("description")]
+                    public string Description { init; get; }
+                    [JsonPropertyName("issue_date")]
+                    public DateTime? IssueDate { init; get; }
+                    [JsonPropertyName("due_date")]
+                    public DateTime? DueDate { init; get; }
+                    [JsonPropertyName("order_date")]
+                    public DateTime? OrderDate { init; get; }
+                    [JsonPropertyName("order_no")]
+                    public string OrderNo { init; get; }
+                    [JsonPropertyName("currency")]
+                    public string Currency { init; get; }
+                    [JsonPropertyName("exchange_rate")]
+                    public string ExchangeRate { init; get; }
+                    [JsonPropertyName("withholding_rate")]
+                    public string WithholdingRate { init; get; }
+                    [JsonPropertyName("vat_withholding_rate")]
+                    public string VatWithholdingRate { init; get; }
+                    [JsonPropertyName("invoice_discount_type")]
+                    public string InvoiceDiscountType { init; get; }
+                    [JsonPropertyName("invoice_discount")]
+                    public string InvoiceDiscount { init; get; }
+                    [JsonPropertyName("billing_address")]
+                    public string BillingAddress { init; get; }
+                    [JsonPropertyName("billing_phone")]
+                    public string BillingPhone { init; get; }
+                    [JsonPropertyName("billing_fax")]
+                    public string BillingFax { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("payment_account_id")]
+                    public string PaymentAccountID { init; get; }
+                    [JsonPropertyName("payment_date")]
+                    public string PaymentDate { init; get; }
+                    [JsonPropertyName("payment_description")]
+                    public string PaymentDescription { init; get; }
+                    [JsonPropertyName("shipment_addres")]
+                    public string ShipmentAddres { init; get; }
+                    [JsonPropertyName("shipment_included")]
+                    public bool? ShipmentIncluded { init; get; }
+                    [JsonPropertyName("cash_sale")]
+                    public bool? CashSale { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                }
+                public class Relationships {
+                    [JsonPropertyName("details")]
+                    public object Details { get; set; }
+                    [JsonPropertyName("contact")]
+                    public object Contact { get; set; }
+                    [JsonPropertyName("category")]
+                    public object Category { get; set; }
+                    [JsonPropertyName("tags")]
+                    public object Tags { get; set; }
+                    [JsonPropertyName("sales_offer")]
+                    public object SalesOffer { get; set; }
                 }
             }
             public class EArchivePDF {
@@ -129,16 +205,20 @@ namespace Parasut {
                     public string NetTotal { init; get; }
                     [JsonPropertyName("gross_total")]
                     public string GrossTotal { init; get; }
-                    [JsonPropertyName("withholding")]
-                    public string Withholding { init; get; }
                     [JsonPropertyName("total_excise_duty")]
                     public string TotalExciseDuty { init; get; }
                     [JsonPropertyName("total_communications_tax")]
                     public string TotalCommunicationsTax { init; get; }
                     [JsonPropertyName("total_vat")]
                     public string TotalVat { init; get; }
+                    [JsonPropertyName("withholding")]
+                    public string Withholding { init; get; }
                     [JsonPropertyName("vat_withholding")]
                     public string VatWithholding { init; get; }
+                    [JsonPropertyName("withholding_rate")]
+                    public string WithholdingRate { init; get; }
+                    [JsonPropertyName("vat_withholding_rate")]
+                    public string VatWithholdingRate { init; get; }
                     [JsonPropertyName("total_discount")]
                     public string TotalDiscount { init; get; }
                     [JsonPropertyName("total_invoice_discount")]
@@ -169,10 +249,6 @@ namespace Parasut {
                     public string Currency { init; get; }
                     [JsonPropertyName("exchange_rate")]
                     public string ExchangeRate { init; get; }
-                    [JsonPropertyName("withholding_rate")]
-                    public string WithholdingRate { init; get; }
-                    [JsonPropertyName("vat_withholding_rate")]
-                    public string VatWithholdingRate { init; get; }
                     [JsonPropertyName("invoice_discount_type")]
                     public string InvoiceDiscountType { init; get; }
                     [JsonPropertyName("invoice_discount")]
