@@ -55,6 +55,94 @@ namespace Parasut {
                 [JsonPropertyName("redirect_uri")]
                 public string RedirectURI { init; get; }
             }
+            public class Contact {
+                [JsonPropertyName("data")]
+                public ContactData Data { init; get; }
+                public class ContactData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public Attributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public Relationships Relationships { init; get; }
+                }
+                public class Attributes {
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("short_name")]
+                    public string ShortName { init; get; }
+                    [JsonPropertyName("contact_type")]
+                    public string ContactType { init; get; }
+                    [JsonPropertyName("account_type")]
+                    public string AccountType { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("address")]
+                    public string Address { init; get; }
+                    [JsonPropertyName("phone")]
+                    public string Phone { init; get; }
+                    [JsonPropertyName("fax")]
+                    public string Fax { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                    [JsonPropertyName("untrackable")]
+                    public bool? Untrackable { init; get; }
+                }
+                public class Relationships {
+                    [JsonPropertyName("category")]
+                    public Category Category { get; set; }
+                    [JsonPropertyName("contact_people")]
+                    public ContactPeople[] ContactPeople { get; set; }
+                }
+                public class Category {
+                    [JsonPropertyName("data")]
+                    public CategoryData Data { init; get; }
+                    public class CategoryData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class ContactPeople {
+                    [JsonPropertyName("data")]
+                    public ContactData Data { init; get; }
+                    public class ContactData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                        [JsonPropertyName("attributes")]
+                        public ContactPeopleAttributes Attributes { init; get; }
+                        public class ContactPeopleAttributes {
+                            [JsonPropertyName("name")]
+                            public string Name { init; get; }
+                            [JsonPropertyName("email")]
+                            public string Email { init; get; }
+                            [JsonPropertyName("phone")]
+                            public string Phone { init; get; }
+                            [JsonPropertyName("notes")]
+                            public string Notes { init; get; }
+                        }
+                    }
+                }
+            }
             public class SalesInvoice {
                 [JsonPropertyName("data")]
                 public SalesInvoiceData Data { init; get; }
@@ -364,6 +452,107 @@ namespace Parasut {
                 public long CreatedAt { init; get; }
                 [JsonPropertyName("scope")]
                 public string Scope { init; get; }
+            }
+            public class Contact {
+                [JsonPropertyName("data")]
+                public ContactData Data { init; get; }
+                public class ContactData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public Attributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public Relationships Relationships { init; get; }
+                }
+                public class Attributes {
+                    [JsonPropertyName("balance")]
+                    public string Balance { init; get; }
+                    [JsonPropertyName("trl_balance")]
+                    public string TRLBalance { init; get; }
+                    [JsonPropertyName("usd_balance")]
+                    public string USDBalance { init; get; }
+                    [JsonPropertyName("eur_balance")]
+                    public string EURBalance { init; get; }
+                    [JsonPropertyName("gbp_balance")]
+                    public string GBPBalance { init; get; }
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("short_name")]
+                    public string ShortName { init; get; }
+                    [JsonPropertyName("contact_type")]
+                    public string ContactType { init; get; }
+                    [JsonPropertyName("account_type")]
+                    public string AccountType { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("address")]
+                    public string Address { init; get; }
+                    [JsonPropertyName("phone")]
+                    public string Phone { init; get; }
+                    [JsonPropertyName("fax")]
+                    public string Fax { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                    [JsonPropertyName("untrackable")]
+                    public bool? Untrackable { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class Relationships {
+                    [JsonPropertyName("category")]
+                    public Category Category { get; set; }
+                    [JsonPropertyName("contact_portal")]
+                    public ContactPortal ContactPortal { get; set; }
+                    [JsonPropertyName("contact_people")]
+                    public ContactPeople ContactPeople { get; set; }
+                }
+                public class Category {
+                    [JsonPropertyName("data")]
+                    public CategoryData Data { init; get; }
+                    public class CategoryData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class ContactPortal {
+                    [JsonPropertyName("data")]
+                    public ContactData Data { init; get; }
+                    public class ContactData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                }
+                public class ContactPeople {
+                    [JsonPropertyName("data")]
+                    public ContactData Data { init; get; }
+                    public class ContactData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                }
             }
             public class SalesInvoice {
                 [JsonPropertyName("data")]
