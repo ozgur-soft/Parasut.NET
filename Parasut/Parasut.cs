@@ -552,6 +552,7 @@ namespace Parasut {
                         public string Id { init; get; }
                         [JsonPropertyName("type")]
                         public string Type { init; get; }
+                    }
                 }
             }
             public class SalesInvoice {
