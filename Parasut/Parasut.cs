@@ -661,6 +661,25 @@ namespace Parasut {
             }
             return null;
         }
+        public Response.SalesInvoice.SalesInvoiceData ConvertSalesInvoice(string id) {
+            try {
+                var http = new HttpClient();
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/convert_to_invoice");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
+                if (result.Data != null) {
+                    return result.Data;
+                }
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
         public Response.EArchivePDF.EArchivePDFData ShowEArchivePDF(string id) {
             try {
                 var http = new HttpClient();
