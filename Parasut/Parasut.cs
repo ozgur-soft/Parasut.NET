@@ -21,6 +21,9 @@ namespace Parasut {
         Parasut.Response.SalesInvoice.SalesInvoiceData UnarchiveSalesInvoice(string id);
         Parasut.Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id);
         Parasut.Response.SalesInvoice.SalesInvoiceData ConvertSalesInvoice(string id);
+        Parasut.Response.Contact.ContactData CreateContact(Parasut.Request.Contact data);
+        Parasut.Response.Contact.ContactData ShowContact(string id);
+        Parasut.Response.Contact.ContactData DeleteContact(string id);
         Parasut.Response.EArchive.EArchiveData CreateEArchive(Parasut.Request.EArchive data);
         Parasut.Response.EInvoice.EInvoiceData CreateEInvoice(Parasut.Request.EInvoice data);
         Parasut.Response.EArchive.EArchiveData ShowEArchive(string id);
@@ -1011,10 +1014,58 @@ namespace Parasut {
                 }
             }
         }
+        public Response.Contact.ContactData CreateContact(Request.Contact data) {
+            try {
+                var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+                var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
+                return result.Data;
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.Contact.ContactData ShowContact(string id) {
+            try {
+                var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+                var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts/" + id + "?include=category,contact_portal,contact_people");
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
+                return result.Data;
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
+        public Response.Contact.ContactData DeleteContact(string id) {
+            try {
+                var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/contacts/" + id);
+                var response = http.Send(request);
+                var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
+                return result.Data;
+            } catch (Exception err) {
+                if (err.InnerException != null) {
+                    Console.WriteLine(err.InnerException.Message);
+                } else {
+                    Console.WriteLine(err.Message);
+                }
+            }
+            return null;
+        }
         public Response.SalesInvoice.SalesInvoiceData CreateSalesInvoice(Request.SalesInvoice data) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+                var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
                 return result.Data;
@@ -1043,10 +1094,10 @@ namespace Parasut {
             }
             return null;
         }
-        public Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id) {
+        public Response.SalesInvoice.SalesInvoiceData DeleteSalesInvoice(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/cancel");
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
                 return result.Data;
@@ -1059,10 +1110,10 @@ namespace Parasut {
             }
             return null;
         }
-        public Response.SalesInvoice.SalesInvoiceData DeleteSalesInvoice(string id) {
+        public Response.SalesInvoice.SalesInvoiceData CancelSalesInvoice(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
+                var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/cancel");
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
                 return result.Data;
