@@ -984,7 +984,6 @@ namespace Parasut {
         public Response.EArchive.EArchiveData ShowEArchive(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var data = new Request.EArchive { Data = new Request.EArchive.EArchiveData { Id = id, Type = "e_archives" } };
                 var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id);
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.EArchive>(response.Content.ReadAsStream());
@@ -1001,7 +1000,6 @@ namespace Parasut {
         public Response.EInvoice.EInvoiceData ShowEInvoice(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var data = new Request.EInvoice { Data = new Request.EInvoice.EInvoiceData { Id = id, Type = "e_invoices" } };
                 var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id);
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.EInvoice>(response.Content.ReadAsStream());
@@ -1018,7 +1016,6 @@ namespace Parasut {
         public Response.EArchivePDF.EArchivePDFData ShowEArchivePDF(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var data = new Request.EArchivePDF { Data = new Request.EArchivePDF.EArchivePDFData { Id = id, Type = "e_document_pdfs" } };
                 var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id + "/pdf");
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.EArchivePDF>(response.Content.ReadAsStream());
@@ -1035,7 +1032,6 @@ namespace Parasut {
         public Response.EInvoicePDF.EInvoicePDFData ShowEInvoicePDF(string id) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var data = new Request.EInvoicePDF { Data = new Request.EInvoicePDF.EInvoicePDFData { Id = id, Type = "e_document_pdfs" } };
                 var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id + "/pdf");
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.EInvoicePDF>(response.Content.ReadAsStream());
@@ -1052,7 +1048,6 @@ namespace Parasut {
         public List<Response.EInvoiceInboxes.EInvoiceInboxesData> ListEInvoiceInboxes(string vkn) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                var data = new Request.EInvoiceInboxes { Data = new Request.EInvoiceInboxes.EInvoiceInboxesData { Type = "e_invoice_inboxes" } };
                 var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoice_inboxes?filter[vkn]=" + vkn);
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.EInvoiceInboxes>(response.Content.ReadAsStream());
