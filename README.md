@@ -27,9 +27,9 @@ namespace Parasut {
                 Data = new() {
                     Attributes = new() {
                         // "customer" (Müşteri) || "supplier" (Tedarikçi)
-                        AccountType = "customer",
+                        AccountType = "",
                         // "company" (Şirket) || "person" (Şahıs)
-                        ContactType = "person",
+                        ContactType = "",
                         // Müşteri Adı
                         Name = "",
                         // Kısa isim            
