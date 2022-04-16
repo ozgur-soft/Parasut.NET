@@ -67,6 +67,9 @@ namespace Parasut {
                 public SalesInvoiceData Data { init; get; }
             }
             public class ContactData : Contact {
+                public ContactData() {
+                    Type = "contacts";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
@@ -151,6 +154,9 @@ namespace Parasut {
                 public string Notes { init; get; }
             }
             public class SalesInvoiceData : SalesInvoice {
+                public SalesInvoiceData() {
+                    Type = "sales_invoices";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
@@ -234,15 +240,15 @@ namespace Parasut {
             }
             public class SalesInvoiceCategory : SalesInvoiceRelationships {
                 [JsonPropertyName("data")]
-                public new SalesInvoiceCategoryData Data { init; get; }
+                public SalesInvoiceCategoryData Data { init; get; }
             }
             public class SalesInvoiceContact : SalesInvoiceRelationships {
                 [JsonPropertyName("data")]
-                public new SalesInvoiceContactData Data { init; get; }
+                public SalesInvoiceContactData Data { init; get; }
             }
             public class SalesInvoiceDetails : SalesInvoiceRelationships {
                 [JsonPropertyName("data")]
-                public new SalesInvoiceDetailsData Data { init; get; }
+                public SalesInvoiceDetailsData Data { init; get; }
             }
             public class SalesInvoiceTags : SalesInvoiceRelationships {
                 [JsonPropertyName("data")]
