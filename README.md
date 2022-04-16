@@ -10,6 +10,8 @@ dotnet add package Parasut --version 1.0.1
 
 # Create Contact
 ```c#
+using System.Text.Json;
+
 namespace Parasut {
     internal class Program {
         static void Main(string[] args) {
@@ -60,7 +62,8 @@ namespace Parasut {
                     }
                 }
             };
-            parasut.CreateContact(contact);
+            var response = parasut.CreateContact(contact);
+            Console.WriteLine(Parasut.JsonString<Parasut.Response.ContactData>(response));
         }
     }
 }
@@ -68,6 +71,8 @@ namespace Parasut {
 
 # Get the PDF url of the invoice
 ```c#
+using System;
+
 namespace Parasut {
     internal class Program {
         static void Main(string[] args) {
