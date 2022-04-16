@@ -111,7 +111,7 @@ namespace Parasut {
                     [JsonPropertyName("category")]
                     public Category Category { get; set; }
                     [JsonPropertyName("contact_people")]
-                    public ContactPeople[] ContactPeople { get; set; }
+                    public ContactPeople ContactPeople { get; set; }
                 }
                 public class Category {
                     [JsonPropertyName("data")]
@@ -125,7 +125,7 @@ namespace Parasut {
                 }
                 public class ContactPeople {
                     [JsonPropertyName("data")]
-                    public ContactData Data { init; get; }
+                    public ContactData[] Data { init; get; }
                     public class ContactData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
@@ -227,7 +227,7 @@ namespace Parasut {
                     [JsonPropertyName("details")]
                     public object Details { get; set; }
                     [JsonPropertyName("tags")]
-                    public Tag[] Tags { get; set; }
+                    public Tag Tags { get; set; }
                     [JsonPropertyName("sales_offer")]
                     public SalesOffer SalesOffer { get; set; }
                 }
@@ -253,7 +253,7 @@ namespace Parasut {
                 }
                 public class Tag {
                     [JsonPropertyName("data")]
-                    public TagData Data { init; get; }
+                    public TagData[] Data { init; get; }
                     public class TagData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
@@ -671,15 +671,15 @@ namespace Parasut {
                     [JsonPropertyName("contact")]
                     public Contact Contact { get; set; }
                     [JsonPropertyName("details")]
-                    public Detail[] Details { get; set; }
+                    public Detail Details { get; set; }
                     [JsonPropertyName("payments")]
-                    public Payment[] Payments { get; set; }
+                    public Payment Payments { get; set; }
                     [JsonPropertyName("tags")]
-                    public Tag[] Tags { get; set; }
+                    public Tag Tags { get; set; }
                     [JsonPropertyName("sales_offer")]
                     public SalesOffer SalesOffer { get; set; }
                     [JsonPropertyName("sharings")]
-                    public Sharing[] Sharings { get; set; }
+                    public Sharing Sharings { get; set; }
                     [JsonPropertyName("recurrence_plan")]
                     public RecurrencePlan RecurrencePlan { get; set; }
                     [JsonPropertyName("active_e_document")]
@@ -707,7 +707,7 @@ namespace Parasut {
                 }
                 public class Detail {
                     [JsonPropertyName("data")]
-                    public DetailData Data { init; get; }
+                    public DetailData[] Data { init; get; }
                     public class DetailData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
@@ -717,7 +717,7 @@ namespace Parasut {
                 }
                 public class Payment {
                     [JsonPropertyName("data")]
-                    public PaymentData Data { init; get; }
+                    public PaymentData[] Data { init; get; }
                     public class PaymentData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
@@ -727,7 +727,7 @@ namespace Parasut {
                 }
                 public class Tag {
                     [JsonPropertyName("data")]
-                    public TagData Data { init; get; }
+                    public TagData[] Data { init; get; }
                     public class TagData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
@@ -747,7 +747,7 @@ namespace Parasut {
                 }
                 public class Sharing {
                     [JsonPropertyName("data")]
-                    public SharingData Data { init; get; }
+                    public SharingData[] Data { init; get; }
                     public class SharingData {
                         [JsonPropertyName("id")]
                         public string Id { init; get; }
