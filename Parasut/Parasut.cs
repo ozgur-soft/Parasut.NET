@@ -130,12 +130,18 @@ namespace Parasut {
                 public ContactPeopleData[] Data { init; get; }
             }
             public class ContactCategoryData : ContactCategory {
+                public ContactCategoryData() {
+                    Type = "item_categories";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
                 public string Type { init; get; }
             }
             public class ContactPeopleData : ContactPeople {
+                public ContactPeopleData() {
+                    Type = "contact_people";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
