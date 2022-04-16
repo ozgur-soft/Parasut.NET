@@ -10,6 +10,7 @@ dotnet add package Parasut --version 1.0.1
 
 # Create Contact
 ```c#
+using System;
 using System.Text.Json;
 
 namespace Parasut {
