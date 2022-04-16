@@ -20,7 +20,7 @@ namespace Parasut {
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
             parasut.Authentication(); // required
-            var request = new Parasut.Request.Contact {
+            var contact = new Parasut.Request.Contact {
                 Data = new() {
                     Attributes = new() {
                         // "customer" (Müşteri) || "supplier" (Tedarikçi)
@@ -60,7 +60,7 @@ namespace Parasut {
                     }
                 }
             };
-            parasut.CreateContact(request);
+            parasut.CreateContact(contact);
         }
     }
 }
