@@ -1328,10 +1328,10 @@ namespace Parasut {
             }
             return null;
         }
-        private static string QueryString<T>(T data) where T : class {
+        public static string QueryString<T>(T data) where T : class {
             return string.Join("&", typeof(T).GetProperties().Where(p => p.GetValue(data, null) != null).Select(p => $"{p.GetCustomAttribute<JsonPropertyNameAttribute>().Name}={p.GetValue(data)}"));
         }
-        private static string JsonString<T>(T data) where T : class {
+        public static string JsonString<T>(T data) where T : class {
             return JsonSerializer.Serialize(data, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, WriteIndented = true });
         }
     }
