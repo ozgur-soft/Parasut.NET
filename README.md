@@ -8,6 +8,64 @@ An easy-to-use parasut.com API (v4) with .NET
 dotnet add package Parasut --version 1.0.1
 ```
 
+# Create Contact
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            parasut.Authentication(); // required
+            var request = new Parasut.Request.Contact {
+                Data = new() {
+                    Attributes = new() {
+                        // "customer" (Müşteri) || "supplier" (Tedarikçi)
+                        AccountType = "customer",
+                        // "company" (Şirket) || "person" (Şahıs)
+                        ContactType = "person",
+                        // Müşteri Adı
+                        Name = "",
+                        // Kısa isim            
+                        ShortName = "",
+                        // Vergi numarası         
+                        TaxNumber = "",
+                        // Vergi dairesi
+                        TaxOffice = "",
+                        // İl   
+                        City = "",
+                        // İlçe        
+                        District = "",
+                        // Adres
+                        Address = "",
+                        // Telefon
+                        Phone = "",
+                        // Faks    
+                        Fax = "",
+                        //  E-posta adresi
+                        Email = "",
+                        // IBAN numarası
+                        IBAN = "",
+                    },
+                    Relationships = new() {
+                        Category = new() {
+                            Data = new() {
+                                // Kategori ID (varsa)
+                                Id = ""
+                            }
+                        }
+                    }
+                }
+            };
+            parasut.CreateContact(request);
+        }
+    }
+}
+```
+
 # Get the PDF url of the invoice
 ```c#
 namespace Parasut {
