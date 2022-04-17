@@ -52,14 +52,6 @@ namespace Parasut {
                         Email = "",
                         // IBAN numarası
                         IBAN = "",
-                    },
-                    Relationships = new() {
-                        Category = new() {
-                            Data = new() {
-                                // Kategori ID (varsa)
-                                Id = ""
-                            }
-                        }
                     }
                 }
             };
