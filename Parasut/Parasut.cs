@@ -79,7 +79,7 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public ContactRelationships Relationships { init; get; }
             }
-            public class ContactAttributes : ContactData {
+            public class ContactAttributes {
                 [JsonPropertyName("email")]
                 public string Email { init; get; }
                 [JsonPropertyName("name")]
@@ -115,11 +115,11 @@ namespace Parasut {
                 [JsonPropertyName("untrackable")]
                 public bool? Untrackable { init; get; }
             }
-            public class ContactRelationships : ContactData {
+            public class ContactRelationships {
                 [JsonPropertyName("category")]
-                public ContactCategory Category { get; set; }
+                public ContactCategory ContactCategory { get; set; }
                 [JsonPropertyName("contact_people")]
-                public ContactPeople People { get; set; }
+                public ContactPeople ContactPeople { get; set; }
             }
             public class ContactCategory : ContactRelationships {
                 [JsonPropertyName("data")]
@@ -172,7 +172,7 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public SalesInvoiceRelationships Relationships { init; get; }
             }
-            public class SalesInvoiceAttributes : SalesInvoiceData {
+            public class SalesInvoiceAttributes {
                 [JsonPropertyName("invoice_id")]
                 public int? InvoiceId { init; get; }
                 [JsonPropertyName("invoice_series")]
@@ -232,7 +232,7 @@ namespace Parasut {
                 [JsonPropertyName("is_abroad")]
                 public bool? IsAbroad { init; get; }
             }
-            public class SalesInvoiceRelationships : SalesInvoiceData {
+            public class SalesInvoiceRelationships {
                 [JsonPropertyName("category")]
                 public SalesInvoiceCategory Category { get; set; }
                 [JsonPropertyName("contact")]
@@ -490,7 +490,7 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public ContactRelationships Relationships { init; get; }
             }
-            public class ContactAttributes : ContactData {
+            public class ContactAttributes {
                 [JsonPropertyName("balance")]
                 public string Balance { init; get; }
                 [JsonPropertyName("trl_balance")]
@@ -540,7 +540,7 @@ namespace Parasut {
                 [JsonPropertyName("updated_at")]
                 public string UpdatedAt { init; get; }
             }
-            public class ContactRelationships : ContactData {
+            public class ContactRelationships {
                 [JsonPropertyName("category")]
                 public ContactCategory ContactCategory { get; set; }
                 [JsonPropertyName("contact_portal")]
@@ -558,7 +558,7 @@ namespace Parasut {
             }
             public class ContactPeople : ContactRelationships {
                 [JsonPropertyName("data")]
-                public ContactPeopleData Data { init; get; }
+                public ContactPeopleData[] Data { init; get; }
             }
             public class ContactCategoryData : ContactCategory {
                 [JsonPropertyName("id")]
@@ -592,7 +592,7 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public SalesInvoiceRelationships Relationships { init; get; }
             }
-            public class SalesInvoiceAttributes : SalesInvoiceData {
+            public class SalesInvoiceAttributes {
                 [JsonPropertyName("invoice_id")]
                 public int? InvoiceId { init; get; }
                 [JsonPropertyName("invoice_no")]
@@ -686,7 +686,7 @@ namespace Parasut {
                 [JsonPropertyName("archived")]
                 public bool? Archived { init; get; }
             }
-            public class SalesInvoiceRelationships : SalesInvoiceData {
+            public class SalesInvoiceRelationships {
                 [JsonPropertyName("category")]
                 public SalesInvoiceCategory Category { get; set; }
                 [JsonPropertyName("contact")]
