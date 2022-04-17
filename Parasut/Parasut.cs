@@ -43,7 +43,7 @@ namespace Parasut {
         public Parasut() {
             Endpoint = "https://api.parasut.com/v4/";
         }
-        public class Request : Parasut {
+        public class Request {
             public class Authentication : Request {
                 [JsonPropertyName("client_id")]
                 public string ClientId { init; get; }
@@ -78,86 +78,86 @@ namespace Parasut {
                 public ContactAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public ContactRelationships Relationships { init; get; }
-            }
-            public class ContactAttributes {
-                [JsonPropertyName("email")]
-                public string Email { init; get; }
-                [JsonPropertyName("name")]
-                public string Name { init; get; }
-                [JsonPropertyName("short_name")]
-                public string ShortName { init; get; }
-                [JsonPropertyName("contact_type")]
-                public string ContactType { init; get; }
-                [JsonPropertyName("account_type")]
-                public string AccountType { init; get; }
-                [JsonPropertyName("tax_office")]
-                public string TaxOffice { init; get; }
-                [JsonPropertyName("tax_number")]
-                public string TaxNumber { init; get; }
-                [JsonPropertyName("country")]
-                public string Country { init; get; }
-                [JsonPropertyName("city")]
-                public string City { init; get; }
-                [JsonPropertyName("district")]
-                public string District { init; get; }
-                [JsonPropertyName("address")]
-                public string Address { init; get; }
-                [JsonPropertyName("phone")]
-                public string Phone { init; get; }
-                [JsonPropertyName("fax")]
-                public string Fax { init; get; }
-                [JsonPropertyName("iban")]
-                public string IBAN { init; get; }
-                [JsonPropertyName("is_abroad")]
-                public bool? IsAbroad { init; get; }
-                [JsonPropertyName("archived")]
-                public bool? Archived { init; get; }
-                [JsonPropertyName("untrackable")]
-                public bool? Untrackable { init; get; }
-            }
-            public class ContactRelationships {
-                [JsonPropertyName("category")]
-                public ContactCategory ContactCategory { get; set; }
-                [JsonPropertyName("contact_people")]
-                public ContactPeople ContactPeople { get; set; }
-            }
-            public class ContactCategory : ContactRelationships {
-                [JsonPropertyName("data")]
-                public ContactCategoryData Data { init; get; }
-            }
-            public class ContactPeople : ContactRelationships {
-                [JsonPropertyName("data")]
-                public ContactPeopleData[] Data { init; get; }
-            }
-            public class ContactCategoryData : ContactCategory {
-                public ContactCategoryData() {
-                    Type = "item_categories";
+                public class ContactAttributes {
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("short_name")]
+                    public string ShortName { init; get; }
+                    [JsonPropertyName("contact_type")]
+                    public string ContactType { init; get; }
+                    [JsonPropertyName("account_type")]
+                    public string AccountType { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("address")]
+                    public string Address { init; get; }
+                    [JsonPropertyName("phone")]
+                    public string Phone { init; get; }
+                    [JsonPropertyName("fax")]
+                    public string Fax { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                    [JsonPropertyName("untrackable")]
+                    public bool? Untrackable { init; get; }
                 }
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class ContactPeopleData : ContactPeople {
-                public ContactPeopleData() {
-                    Type = "contact_people";
+                public class ContactRelationships {
+                    [JsonPropertyName("category")]
+                    public ContactCategory ContactCategory { get; set; }
+                    [JsonPropertyName("contact_people")]
+                    public ContactPeople ContactPeople { get; set; }
                 }
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-                [JsonPropertyName("attributes")]
-                public ContactPeopleAttributes Attributes { init; get; }
-            }
-            public class ContactPeopleAttributes : ContactPeopleData {
-                [JsonPropertyName("name")]
-                public string Name { init; get; }
-                [JsonPropertyName("email")]
-                public string Email { init; get; }
-                [JsonPropertyName("phone")]
-                public string Phone { init; get; }
-                [JsonPropertyName("notes")]
-                public string Notes { init; get; }
+                public class ContactCategory {
+                    [JsonPropertyName("data")]
+                    public ContactCategoryData Data { init; get; }
+                }
+                public class ContactPeople {
+                    [JsonPropertyName("data")]
+                    public ContactPeopleData[] Data { init; get; }
+                }
+                public class ContactCategoryData {
+                    public ContactCategoryData() {
+                        Type = "item_categories";
+                    }
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class ContactPeopleData {
+                    public ContactPeopleData() {
+                        Type = "contact_people";
+                    }
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public ContactPeopleAttributes Attributes { init; get; }
+                }
+                public class ContactPeopleAttributes {
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("phone")]
+                    public string Phone { init; get; }
+                    [JsonPropertyName("notes")]
+                    public string Notes { init; get; }
+                }
             }
             public class SalesInvoiceData : SalesInvoice {
                 public SalesInvoiceData() {
@@ -171,128 +171,128 @@ namespace Parasut {
                 public SalesInvoiceAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public SalesInvoiceRelationships Relationships { init; get; }
-            }
-            public class SalesInvoiceAttributes {
-                [JsonPropertyName("invoice_id")]
-                public int? InvoiceId { init; get; }
-                [JsonPropertyName("invoice_series")]
-                public string InvoiceSeries { init; get; }
-                [JsonPropertyName("item_type")]
-                public string ItemType { init; get; }
-                [JsonPropertyName("description")]
-                public string Description { init; get; }
-                [JsonPropertyName("issue_date")]
-                public DateTime? IssueDate { init; get; }
-                [JsonPropertyName("due_date")]
-                public DateTime? DueDate { init; get; }
-                [JsonPropertyName("order_date")]
-                public DateTime? OrderDate { init; get; }
-                [JsonPropertyName("order_no")]
-                public string OrderNo { init; get; }
-                [JsonPropertyName("currency")]
-                public string Currency { init; get; }
-                [JsonPropertyName("exchange_rate")]
-                public string ExchangeRate { init; get; }
-                [JsonPropertyName("withholding_rate")]
-                public string WithholdingRate { init; get; }
-                [JsonPropertyName("vat_withholding_rate")]
-                public string VatWithholdingRate { init; get; }
-                [JsonPropertyName("invoice_discount_type")]
-                public string InvoiceDiscountType { init; get; }
-                [JsonPropertyName("invoice_discount")]
-                public string InvoiceDiscount { init; get; }
-                [JsonPropertyName("billing_address")]
-                public string BillingAddress { init; get; }
-                [JsonPropertyName("billing_phone")]
-                public string BillingPhone { init; get; }
-                [JsonPropertyName("billing_fax")]
-                public string BillingFax { init; get; }
-                [JsonPropertyName("tax_office")]
-                public string TaxOffice { init; get; }
-                [JsonPropertyName("tax_number")]
-                public string TaxNumber { init; get; }
-                [JsonPropertyName("country")]
-                public string Country { init; get; }
-                [JsonPropertyName("city")]
-                public string City { init; get; }
-                [JsonPropertyName("district")]
-                public string District { init; get; }
-                [JsonPropertyName("payment_account_id")]
-                public string PaymentAccountID { init; get; }
-                [JsonPropertyName("payment_date")]
-                public string PaymentDate { init; get; }
-                [JsonPropertyName("payment_description")]
-                public string PaymentDescription { init; get; }
-                [JsonPropertyName("shipment_addres")]
-                public string ShipmentAddres { init; get; }
-                [JsonPropertyName("shipment_included")]
-                public bool? ShipmentIncluded { init; get; }
-                [JsonPropertyName("cash_sale")]
-                public bool? CashSale { init; get; }
-                [JsonPropertyName("is_abroad")]
-                public bool? IsAbroad { init; get; }
-            }
-            public class SalesInvoiceRelationships {
-                [JsonPropertyName("category")]
-                public SalesInvoiceCategory Category { get; set; }
-                [JsonPropertyName("contact")]
-                public SalesInvoiceContact Contact { get; set; }
-                [JsonPropertyName("details")]
-                public SalesInvoiceDetails Details { get; set; }
-                [JsonPropertyName("tags")]
-                public SalesInvoiceTags Tags { get; set; }
-                [JsonPropertyName("sales_offer")]
-                public SalesInvoiceSalesOffer SalesOffer { get; set; }
-            }
-            public class SalesInvoiceCategory : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceCategoryData Data { init; get; }
-            }
-            public class SalesInvoiceContact : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceContactData Data { init; get; }
-            }
-            public class SalesInvoiceDetails : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceDetailsData Data { init; get; }
-            }
-            public class SalesInvoiceTags : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceTagsData[] Data { init; get; }
-            }
-            public class SalesInvoiceSalesOffer : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceSalesOfferData Data { init; get; }
-            }
-            public class SalesInvoiceCategoryData : SalesInvoiceCategory {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceContactData : SalesInvoiceContact {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceDetailsData : SalesInvoiceDetails {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceTagsData : SalesInvoiceTags {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceSalesOfferData : SalesInvoiceSalesOffer {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class SalesInvoiceAttributes {
+                    [JsonPropertyName("invoice_id")]
+                    public int? InvoiceId { init; get; }
+                    [JsonPropertyName("invoice_series")]
+                    public string InvoiceSeries { init; get; }
+                    [JsonPropertyName("item_type")]
+                    public string ItemType { init; get; }
+                    [JsonPropertyName("description")]
+                    public string Description { init; get; }
+                    [JsonPropertyName("issue_date")]
+                    public DateTime? IssueDate { init; get; }
+                    [JsonPropertyName("due_date")]
+                    public DateTime? DueDate { init; get; }
+                    [JsonPropertyName("order_date")]
+                    public DateTime? OrderDate { init; get; }
+                    [JsonPropertyName("order_no")]
+                    public string OrderNo { init; get; }
+                    [JsonPropertyName("currency")]
+                    public string Currency { init; get; }
+                    [JsonPropertyName("exchange_rate")]
+                    public string ExchangeRate { init; get; }
+                    [JsonPropertyName("withholding_rate")]
+                    public string WithholdingRate { init; get; }
+                    [JsonPropertyName("vat_withholding_rate")]
+                    public string VatWithholdingRate { init; get; }
+                    [JsonPropertyName("invoice_discount_type")]
+                    public string InvoiceDiscountType { init; get; }
+                    [JsonPropertyName("invoice_discount")]
+                    public string InvoiceDiscount { init; get; }
+                    [JsonPropertyName("billing_address")]
+                    public string BillingAddress { init; get; }
+                    [JsonPropertyName("billing_phone")]
+                    public string BillingPhone { init; get; }
+                    [JsonPropertyName("billing_fax")]
+                    public string BillingFax { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("payment_account_id")]
+                    public string PaymentAccountID { init; get; }
+                    [JsonPropertyName("payment_date")]
+                    public string PaymentDate { init; get; }
+                    [JsonPropertyName("payment_description")]
+                    public string PaymentDescription { init; get; }
+                    [JsonPropertyName("shipment_addres")]
+                    public string ShipmentAddres { init; get; }
+                    [JsonPropertyName("shipment_included")]
+                    public bool? ShipmentIncluded { init; get; }
+                    [JsonPropertyName("cash_sale")]
+                    public bool? CashSale { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                }
+                public class SalesInvoiceRelationships {
+                    [JsonPropertyName("category")]
+                    public SalesInvoiceCategory Category { get; set; }
+                    [JsonPropertyName("contact")]
+                    public SalesInvoiceContact Contact { get; set; }
+                    [JsonPropertyName("details")]
+                    public SalesInvoiceDetails Details { get; set; }
+                    [JsonPropertyName("tags")]
+                    public SalesInvoiceTags Tags { get; set; }
+                    [JsonPropertyName("sales_offer")]
+                    public SalesInvoiceSalesOffer SalesOffer { get; set; }
+                }
+                public class SalesInvoiceCategory {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceCategoryData Data { init; get; }
+                }
+                public class SalesInvoiceContact {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceContactData Data { init; get; }
+                }
+                public class SalesInvoiceDetails {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceDetailsData Data { init; get; }
+                }
+                public class SalesInvoiceTags {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceTagsData[] Data { init; get; }
+                }
+                public class SalesInvoiceSalesOffer {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceSalesOfferData Data { init; get; }
+                }
+                public class SalesInvoiceCategoryData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceContactData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceDetailsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceTagsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceSalesOfferData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EArchive : Request {
                 [JsonPropertyName("data")]
@@ -307,64 +307,64 @@ namespace Parasut {
                 public EArchiveAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EArchiveRelationships Relationships { init; get; }
-            }
-            public class EArchiveAttributes : EArchiveData {
-                [JsonPropertyName("vat_withholding_code")]
-                public string VatWithholdingCode { init; get; }
-                [JsonPropertyName("vat_exemption_reason_code")]
-                public string VatExemptionReasonCode { init; get; }
-                [JsonPropertyName("vat_exemption_reason")]
-                public string VatExemptionReason { init; get; }
-                [JsonPropertyName("note")]
-                public string Note { init; get; }
-                [JsonPropertyName("excise_duty_codes")]
-                public EArchiveExciseDutyCode[] ExciseDutyCodes { init; get; }
-                [JsonPropertyName("internet_sale")]
-                public InternetSaleData InternetSale { init; get; }
-                [JsonPropertyName("shipment")]
-                public ShipmentData Shipment { init; get; }
-            }
-            public class EArchiveRelationships : EArchiveData {
-                [JsonPropertyName("sales_invoice")]
-                public SalesInvoice SalesInvoice { get; set; }
-            }
-            public class EArchiveExciseDutyCode : EArchiveAttributes {
-                [JsonPropertyName("product")]
-                public int? Product { init; get; }
-                [JsonPropertyName("sales_excise_duty_code")]
-                public string SalesExciseDutyCode { init; get; }
-            }
-            public class InternetSaleData : EArchiveAttributes {
-                [JsonPropertyName("url")]
-                public string Url { init; get; }
-                [JsonPropertyName("payment_type")]
-                public string PaymentType { init; get; }
-                [JsonPropertyName("payment_platform")]
-                public string PaymentPlatform { init; get; }
-                [JsonPropertyName("payment_date")]
-                public string PaymentDate { init; get; }
-            }
-            public class ShipmentData : EArchiveAttributes {
-                [JsonPropertyName("title")]
-                public string Title { init; get; }
-                [JsonPropertyName("name")]
-                public string Name { init; get; }
-                [JsonPropertyName("vkn")]
-                public string VKN { init; get; }
-                [JsonPropertyName("tckn")]
-                public string TCKN { init; get; }
-                [JsonPropertyName("date")]
-                public string Date { init; get; }
-            }
-            public class EArchiveSalesInvoice : EArchiveRelationships {
-                [JsonPropertyName("data")]
-                public EArchiveSalesInvoiceData Data { init; get; }
-            }
-            public class EArchiveSalesInvoiceData : EArchiveSalesInvoice {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class EArchiveAttributes {
+                    [JsonPropertyName("vat_withholding_code")]
+                    public string VatWithholdingCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason_code")]
+                    public string VatExemptionReasonCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason")]
+                    public string VatExemptionReason { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public EArchiveExciseDutyCode[] ExciseDutyCodes { init; get; }
+                    [JsonPropertyName("internet_sale")]
+                    public InternetSaleData InternetSale { init; get; }
+                    [JsonPropertyName("shipment")]
+                    public ShipmentData Shipment { init; get; }
+                }
+                public class EArchiveRelationships {
+                    [JsonPropertyName("sales_invoice")]
+                    public EArchiveSalesInvoice SalesInvoice { get; set; }
+                }
+                public class EArchiveExciseDutyCode {
+                    [JsonPropertyName("product")]
+                    public int? Product { init; get; }
+                    [JsonPropertyName("sales_excise_duty_code")]
+                    public string SalesExciseDutyCode { init; get; }
+                }
+                public class InternetSaleData {
+                    [JsonPropertyName("url")]
+                    public string Url { init; get; }
+                    [JsonPropertyName("payment_type")]
+                    public string PaymentType { init; get; }
+                    [JsonPropertyName("payment_platform")]
+                    public string PaymentPlatform { init; get; }
+                    [JsonPropertyName("payment_date")]
+                    public string PaymentDate { init; get; }
+                }
+                public class ShipmentData {
+                    [JsonPropertyName("title")]
+                    public string Title { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("vkn")]
+                    public string VKN { init; get; }
+                    [JsonPropertyName("tckn")]
+                    public string TCKN { init; get; }
+                    [JsonPropertyName("date")]
+                    public string Date { init; get; }
+                }
+                public class EArchiveSalesInvoice {
+                    [JsonPropertyName("data")]
+                    public EArchiveSalesInvoiceData Data { init; get; }
+                }
+                public class EArchiveSalesInvoiceData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EInvoice : Request {
                 [JsonPropertyName("data")]
@@ -379,66 +379,66 @@ namespace Parasut {
                 public EInvoiceAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EInvoiceRelationships Relationships { init; get; }
-            }
-            public class EInvoiceAttributes : EInvoiceData {
-                [JsonPropertyName("vat_withholding_code")]
-                public string VatWithholdingCode { init; get; }
-                [JsonPropertyName("vat_exemption_reason_code")]
-                public string VatExemptionReasonCode { init; get; }
-                [JsonPropertyName("vat_exemption_reason")]
-                public string VatExemptionReason { init; get; }
-                [JsonPropertyName("note")]
-                public string Note { init; get; }
-                [JsonPropertyName("excise_duty_codes")]
-                public EInvoiceExciseDutyCode[] ExciseDutyCodes { init; get; }
-                [JsonPropertyName("scenario")]
-                public string Scenario { init; get; }
-                [JsonPropertyName("to")]
-                public string To { init; get; }
-                [JsonPropertyName("custom_requirement_params")]
-                public CustomRequirementParam CustomRequirementParams { init; get; }
-            }
-            public class EInvoiceExciseDutyCode : EInvoiceAttributes {
-                [JsonPropertyName("product")]
-                public int? Product { init; get; }
-                [JsonPropertyName("sales_excise_duty_code")]
-                public string SalesExciseDutyCode { init; get; }
-            }
-            public class CustomRequirementParam : EInvoiceAttributes {
-                [JsonPropertyName("integration")]
-                public CustomIntegration Integration { init; get; }
-            }
-            public class CustomIntegration : CustomRequirementParam {
-                [JsonPropertyName("data")]
-                public IntegrationData Data { init; get; }
-            }
-            public class IntegrationData : CustomIntegration {
-                [JsonPropertyName("additional_invoice_type")]
-                public string AdditionalInvoiceType { init; get; }
-                [JsonPropertyName("tax_payer_code")]
-                public string TaxPayerCode { init; get; }
-                [JsonPropertyName("tax_payer_name")]
-                public string TaxPayerName { init; get; }
-                [JsonPropertyName("file_number")]
-                public string FileNumber { init; get; }
-                [JsonPropertyName("term_start_date")]
-                public string TermStartDate { init; get; }
-                [JsonPropertyName("term_end_date")]
-                public string TermEndDate { init; get; }
-            }
-            public class EInvoiceRelationships : EInvoiceData {
-                [JsonPropertyName("invoice")]
-                public EInvoiceInvoice Invoice { get; set; }
-            }
-            public class EInvoiceInvoice : EInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public EInvoiceInvoiceData Data { init; get; }
-            }
-            public class EInvoiceInvoiceData : EInvoiceInvoice {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class EInvoiceAttributes {
+                    [JsonPropertyName("vat_withholding_code")]
+                    public string VatWithholdingCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason_code")]
+                    public string VatExemptionReasonCode { init; get; }
+                    [JsonPropertyName("vat_exemption_reason")]
+                    public string VatExemptionReason { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public EInvoiceExciseDutyCode[] ExciseDutyCodes { init; get; }
+                    [JsonPropertyName("scenario")]
+                    public string Scenario { init; get; }
+                    [JsonPropertyName("to")]
+                    public string To { init; get; }
+                    [JsonPropertyName("custom_requirement_params")]
+                    public CustomRequirementParam CustomRequirementParams { init; get; }
+                }
+                public class EInvoiceExciseDutyCode {
+                    [JsonPropertyName("product")]
+                    public int? Product { init; get; }
+                    [JsonPropertyName("sales_excise_duty_code")]
+                    public string SalesExciseDutyCode { init; get; }
+                }
+                public class CustomRequirementParam {
+                    [JsonPropertyName("integration")]
+                    public CustomIntegration Integration { init; get; }
+                }
+                public class CustomIntegration {
+                    [JsonPropertyName("data")]
+                    public IntegrationData Data { init; get; }
+                }
+                public class IntegrationData {
+                    [JsonPropertyName("additional_invoice_type")]
+                    public string AdditionalInvoiceType { init; get; }
+                    [JsonPropertyName("tax_payer_code")]
+                    public string TaxPayerCode { init; get; }
+                    [JsonPropertyName("tax_payer_name")]
+                    public string TaxPayerName { init; get; }
+                    [JsonPropertyName("file_number")]
+                    public string FileNumber { init; get; }
+                    [JsonPropertyName("term_start_date")]
+                    public string TermStartDate { init; get; }
+                    [JsonPropertyName("term_end_date")]
+                    public string TermEndDate { init; get; }
+                }
+                public class EInvoiceRelationships {
+                    [JsonPropertyName("invoice")]
+                    public EInvoiceInvoice Invoice { get; set; }
+                }
+                public class EInvoiceInvoice {
+                    [JsonPropertyName("data")]
+                    public EInvoiceInvoiceData Data { init; get; }
+                }
+                public class EInvoiceInvoiceData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EArchivePDF : Request {
                 [JsonPropertyName("data")]
@@ -461,7 +461,7 @@ namespace Parasut {
                 public string Type { init; get; }
             }
         }
-        public class Response : Parasut {
+        public class Response {
             public class Authentication : Response {
                 [JsonPropertyName("token_type")]
                 public string TokenType { init; get; }
@@ -489,94 +489,94 @@ namespace Parasut {
                 public ContactAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public ContactRelationships Relationships { init; get; }
-            }
-            public class ContactAttributes {
-                [JsonPropertyName("balance")]
-                public string Balance { init; get; }
-                [JsonPropertyName("trl_balance")]
-                public string TRLBalance { init; get; }
-                [JsonPropertyName("usd_balance")]
-                public string USDBalance { init; get; }
-                [JsonPropertyName("eur_balance")]
-                public string EURBalance { init; get; }
-                [JsonPropertyName("gbp_balance")]
-                public string GBPBalance { init; get; }
-                [JsonPropertyName("email")]
-                public string Email { init; get; }
-                [JsonPropertyName("name")]
-                public string Name { init; get; }
-                [JsonPropertyName("short_name")]
-                public string ShortName { init; get; }
-                [JsonPropertyName("contact_type")]
-                public string ContactType { init; get; }
-                [JsonPropertyName("account_type")]
-                public string AccountType { init; get; }
-                [JsonPropertyName("tax_office")]
-                public string TaxOffice { init; get; }
-                [JsonPropertyName("tax_number")]
-                public string TaxNumber { init; get; }
-                [JsonPropertyName("country")]
-                public string Country { init; get; }
-                [JsonPropertyName("city")]
-                public string City { init; get; }
-                [JsonPropertyName("district")]
-                public string District { init; get; }
-                [JsonPropertyName("address")]
-                public string Address { init; get; }
-                [JsonPropertyName("phone")]
-                public string Phone { init; get; }
-                [JsonPropertyName("fax")]
-                public string Fax { init; get; }
-                [JsonPropertyName("iban")]
-                public string IBAN { init; get; }
-                [JsonPropertyName("is_abroad")]
-                public bool? IsAbroad { init; get; }
-                [JsonPropertyName("archived")]
-                public bool? Archived { init; get; }
-                [JsonPropertyName("untrackable")]
-                public bool? Untrackable { init; get; }
-                [JsonPropertyName("created_at")]
-                public string CreatedAt { init; get; }
-                [JsonPropertyName("updated_at")]
-                public string UpdatedAt { init; get; }
-            }
-            public class ContactRelationships {
-                [JsonPropertyName("category")]
-                public ContactCategory ContactCategory { get; set; }
-                [JsonPropertyName("contact_portal")]
-                public ContactPortal ContactPortal { get; set; }
-                [JsonPropertyName("contact_people")]
-                public ContactPeople ContactPeople { get; set; }
-            }
-            public class ContactCategory : ContactRelationships {
-                [JsonPropertyName("data")]
-                public ContactCategoryData Data { init; get; }
-            }
-            public class ContactPortal : ContactRelationships {
-                [JsonPropertyName("data")]
-                public ContactPortalData Data { init; get; }
-            }
-            public class ContactPeople : ContactRelationships {
-                [JsonPropertyName("data")]
-                public ContactPeopleData[] Data { init; get; }
-            }
-            public class ContactCategoryData : ContactCategory {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class ContactPortalData : ContactPortal {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class ContactPeopleData : ContactPeople {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class ContactAttributes {
+                    [JsonPropertyName("balance")]
+                    public string Balance { init; get; }
+                    [JsonPropertyName("trl_balance")]
+                    public string TRLBalance { init; get; }
+                    [JsonPropertyName("usd_balance")]
+                    public string USDBalance { init; get; }
+                    [JsonPropertyName("eur_balance")]
+                    public string EURBalance { init; get; }
+                    [JsonPropertyName("gbp_balance")]
+                    public string GBPBalance { init; get; }
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("short_name")]
+                    public string ShortName { init; get; }
+                    [JsonPropertyName("contact_type")]
+                    public string ContactType { init; get; }
+                    [JsonPropertyName("account_type")]
+                    public string AccountType { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("address")]
+                    public string Address { init; get; }
+                    [JsonPropertyName("phone")]
+                    public string Phone { init; get; }
+                    [JsonPropertyName("fax")]
+                    public string Fax { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                    [JsonPropertyName("untrackable")]
+                    public bool? Untrackable { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class ContactRelationships {
+                    [JsonPropertyName("category")]
+                    public ContactCategory ContactCategory { get; set; }
+                    [JsonPropertyName("contact_portal")]
+                    public ContactPortal ContactPortal { get; set; }
+                    [JsonPropertyName("contact_people")]
+                    public ContactPeople ContactPeople { get; set; }
+                }
+                public class ContactCategory {
+                    [JsonPropertyName("data")]
+                    public ContactCategoryData Data { init; get; }
+                }
+                public class ContactPortal {
+                    [JsonPropertyName("data")]
+                    public ContactPortalData Data { init; get; }
+                }
+                public class ContactPeople {
+                    [JsonPropertyName("data")]
+                    public ContactPeopleData[] Data { init; get; }
+                }
+                public class ContactCategoryData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class ContactPortalData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class ContactPeopleData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class SalesInvoice : Response {
                 [JsonPropertyName("data")]
@@ -591,210 +591,210 @@ namespace Parasut {
                 public SalesInvoiceAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public SalesInvoiceRelationships Relationships { init; get; }
-            }
-            public class SalesInvoiceAttributes {
-                [JsonPropertyName("invoice_id")]
-                public int? InvoiceId { init; get; }
-                [JsonPropertyName("invoice_no")]
-                public string InvoiceNo { init; get; }
-                [JsonPropertyName("invoice_series")]
-                public string InvoiceSeries { init; get; }
-                [JsonPropertyName("net_total")]
-                public string NetTotal { init; get; }
-                [JsonPropertyName("gross_total")]
-                public string GrossTotal { init; get; }
-                [JsonPropertyName("total_excise_duty")]
-                public string TotalExciseDuty { init; get; }
-                [JsonPropertyName("total_communications_tax")]
-                public string TotalCommunicationsTax { init; get; }
-                [JsonPropertyName("total_vat")]
-                public string TotalVat { init; get; }
-                [JsonPropertyName("withholding")]
-                public string Withholding { init; get; }
-                [JsonPropertyName("vat_withholding")]
-                public string VatWithholding { init; get; }
-                [JsonPropertyName("withholding_rate")]
-                public string WithholdingRate { init; get; }
-                [JsonPropertyName("vat_withholding_rate")]
-                public string VatWithholdingRate { init; get; }
-                [JsonPropertyName("total_discount")]
-                public string TotalDiscount { init; get; }
-                [JsonPropertyName("total_invoice_discount")]
-                public string TotalInvoiceDiscount { init; get; }
-                [JsonPropertyName("before_taxes_total")]
-                public string BeforeTaxesTotal { init; get; }
-                [JsonPropertyName("remaining")]
-                public string Remaining { init; get; }
-                [JsonPropertyName("remaining_in_trl")]
-                public string RemainingInTrl { init; get; }
-                [JsonPropertyName("created_at")]
-                public string CreatedAt { init; get; }
-                [JsonPropertyName("updated_at")]
-                public string UpdatedAt { init; get; }
-                [JsonPropertyName("item_type")]
-                public string ItemType { init; get; }
-                [JsonPropertyName("description")]
-                public string Description { init; get; }
-                [JsonPropertyName("issue_date")]
-                public DateTime? IssueDate { init; get; }
-                [JsonPropertyName("due_date")]
-                public DateTime? DueDate { init; get; }
-                [JsonPropertyName("order_date")]
-                public DateTime? OrderDate { init; get; }
-                [JsonPropertyName("order_no")]
-                public string OrderNo { init; get; }
-                [JsonPropertyName("currency")]
-                public string Currency { init; get; }
-                [JsonPropertyName("exchange_rate")]
-                public string ExchangeRate { init; get; }
-                [JsonPropertyName("invoice_discount_type")]
-                public string InvoiceDiscountType { init; get; }
-                [JsonPropertyName("invoice_discount")]
-                public string InvoiceDiscount { init; get; }
-                [JsonPropertyName("billing_address")]
-                public string BillingAddress { init; get; }
-                [JsonPropertyName("billing_phone")]
-                public string BillingPhone { init; get; }
-                [JsonPropertyName("billing_fax")]
-                public string BillingFax { init; get; }
-                [JsonPropertyName("tax_office")]
-                public string TaxOffice { init; get; }
-                [JsonPropertyName("tax_number")]
-                public string TaxNumber { init; get; }
-                [JsonPropertyName("country")]
-                public string Country { init; get; }
-                [JsonPropertyName("city")]
-                public string City { init; get; }
-                [JsonPropertyName("district")]
-                public string District { init; get; }
-                [JsonPropertyName("payment_account_id")]
-                public string PaymentAccountID { init; get; }
-                [JsonPropertyName("payment_date")]
-                public string PaymentDate { init; get; }
-                [JsonPropertyName("payment_description")]
-                public string PaymentDescription { init; get; }
-                [JsonPropertyName("payment_status")]
-                public string PaymentStatus { init; get; }
-                [JsonPropertyName("shipment_addres")]
-                public string ShipmentAddres { init; get; }
-                [JsonPropertyName("shipment_included")]
-                public bool? ShipmentIncluded { init; get; }
-                [JsonPropertyName("cash_sale")]
-                public bool? CashSale { init; get; }
-                [JsonPropertyName("is_abroad")]
-                public bool? IsAbroad { init; get; }
-                [JsonPropertyName("archived")]
-                public bool? Archived { init; get; }
-            }
-            public class SalesInvoiceRelationships {
-                [JsonPropertyName("category")]
-                public SalesInvoiceCategory Category { get; set; }
-                [JsonPropertyName("contact")]
-                public SalesInvoiceContact Contact { get; set; }
-                [JsonPropertyName("details")]
-                public SalesInvoiceDetails Details { get; set; }
-                [JsonPropertyName("payments")]
-                public SalesInvoicePayments Payments { get; set; }
-                [JsonPropertyName("tags")]
-                public SalesInvoiceTags Tags { get; set; }
-                [JsonPropertyName("sales_offer")]
-                public SalesInvoiceSalesOffer SalesOffer { get; set; }
-                [JsonPropertyName("sharings")]
-                public SalesInvoiceSharings Sharings { get; set; }
-                [JsonPropertyName("recurrence_plan")]
-                public SalesInvoiceRecurrencePlan RecurrencePlan { get; set; }
-                [JsonPropertyName("active_e_document")]
-                public SalesInvoiceActiveEDocument ActiveEDocument { get; set; }
-            }
-            public class SalesInvoiceCategory : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceCategoryData Data { init; get; }
-            }
-            public class SalesInvoiceCategoryData : SalesInvoiceCategory {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceContact : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceContactData Data { init; get; }
-            }
-            public class SalesInvoiceContactData : SalesInvoiceContact {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceDetails : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceDetailsData[] Data { init; get; }
-            }
-            public class SalesInvoiceDetailsData : SalesInvoiceDetails {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoicePayments : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoicePaymentsData[] Data { init; get; }
-            }
-            public class SalesInvoicePaymentsData : SalesInvoicePayments {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceTags : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceTagsData[] Data { init; get; }
-            }
-            public class SalesInvoiceTagsData : SalesInvoiceTags {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceSalesOffer : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceSalesOfferData Data { init; get; }
-            }
-            public class SalesInvoiceSalesOfferData : SalesInvoiceSalesOffer {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceSharings : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceSharingsData[] Data { init; get; }
-            }
-            public class SalesInvoiceSharingsData : SalesInvoiceSharings {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceRecurrencePlan : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceRecurrencePlanData Data { init; get; }
-            }
-            public class SalesInvoiceRecurrencePlanData : SalesInvoiceRecurrencePlan {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class SalesInvoiceActiveEDocument : SalesInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public SalesInvoiceActiveEDocumentData Data { init; get; }
-            }
-            public class SalesInvoiceActiveEDocumentData : SalesInvoiceActiveEDocument {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class SalesInvoiceAttributes {
+                    [JsonPropertyName("invoice_id")]
+                    public int? InvoiceId { init; get; }
+                    [JsonPropertyName("invoice_no")]
+                    public string InvoiceNo { init; get; }
+                    [JsonPropertyName("invoice_series")]
+                    public string InvoiceSeries { init; get; }
+                    [JsonPropertyName("net_total")]
+                    public string NetTotal { init; get; }
+                    [JsonPropertyName("gross_total")]
+                    public string GrossTotal { init; get; }
+                    [JsonPropertyName("total_excise_duty")]
+                    public string TotalExciseDuty { init; get; }
+                    [JsonPropertyName("total_communications_tax")]
+                    public string TotalCommunicationsTax { init; get; }
+                    [JsonPropertyName("total_vat")]
+                    public string TotalVat { init; get; }
+                    [JsonPropertyName("withholding")]
+                    public string Withholding { init; get; }
+                    [JsonPropertyName("vat_withholding")]
+                    public string VatWithholding { init; get; }
+                    [JsonPropertyName("withholding_rate")]
+                    public string WithholdingRate { init; get; }
+                    [JsonPropertyName("vat_withholding_rate")]
+                    public string VatWithholdingRate { init; get; }
+                    [JsonPropertyName("total_discount")]
+                    public string TotalDiscount { init; get; }
+                    [JsonPropertyName("total_invoice_discount")]
+                    public string TotalInvoiceDiscount { init; get; }
+                    [JsonPropertyName("before_taxes_total")]
+                    public string BeforeTaxesTotal { init; get; }
+                    [JsonPropertyName("remaining")]
+                    public string Remaining { init; get; }
+                    [JsonPropertyName("remaining_in_trl")]
+                    public string RemainingInTrl { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                    [JsonPropertyName("item_type")]
+                    public string ItemType { init; get; }
+                    [JsonPropertyName("description")]
+                    public string Description { init; get; }
+                    [JsonPropertyName("issue_date")]
+                    public DateTime? IssueDate { init; get; }
+                    [JsonPropertyName("due_date")]
+                    public DateTime? DueDate { init; get; }
+                    [JsonPropertyName("order_date")]
+                    public DateTime? OrderDate { init; get; }
+                    [JsonPropertyName("order_no")]
+                    public string OrderNo { init; get; }
+                    [JsonPropertyName("currency")]
+                    public string Currency { init; get; }
+                    [JsonPropertyName("exchange_rate")]
+                    public string ExchangeRate { init; get; }
+                    [JsonPropertyName("invoice_discount_type")]
+                    public string InvoiceDiscountType { init; get; }
+                    [JsonPropertyName("invoice_discount")]
+                    public string InvoiceDiscount { init; get; }
+                    [JsonPropertyName("billing_address")]
+                    public string BillingAddress { init; get; }
+                    [JsonPropertyName("billing_phone")]
+                    public string BillingPhone { init; get; }
+                    [JsonPropertyName("billing_fax")]
+                    public string BillingFax { init; get; }
+                    [JsonPropertyName("tax_office")]
+                    public string TaxOffice { init; get; }
+                    [JsonPropertyName("tax_number")]
+                    public string TaxNumber { init; get; }
+                    [JsonPropertyName("country")]
+                    public string Country { init; get; }
+                    [JsonPropertyName("city")]
+                    public string City { init; get; }
+                    [JsonPropertyName("district")]
+                    public string District { init; get; }
+                    [JsonPropertyName("payment_account_id")]
+                    public string PaymentAccountID { init; get; }
+                    [JsonPropertyName("payment_date")]
+                    public string PaymentDate { init; get; }
+                    [JsonPropertyName("payment_description")]
+                    public string PaymentDescription { init; get; }
+                    [JsonPropertyName("payment_status")]
+                    public string PaymentStatus { init; get; }
+                    [JsonPropertyName("shipment_addres")]
+                    public string ShipmentAddres { init; get; }
+                    [JsonPropertyName("shipment_included")]
+                    public bool? ShipmentIncluded { init; get; }
+                    [JsonPropertyName("cash_sale")]
+                    public bool? CashSale { init; get; }
+                    [JsonPropertyName("is_abroad")]
+                    public bool? IsAbroad { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                }
+                public class SalesInvoiceRelationships {
+                    [JsonPropertyName("category")]
+                    public SalesInvoiceCategory Category { get; set; }
+                    [JsonPropertyName("contact")]
+                    public SalesInvoiceContact Contact { get; set; }
+                    [JsonPropertyName("details")]
+                    public SalesInvoiceDetails Details { get; set; }
+                    [JsonPropertyName("payments")]
+                    public SalesInvoicePayments Payments { get; set; }
+                    [JsonPropertyName("tags")]
+                    public SalesInvoiceTags Tags { get; set; }
+                    [JsonPropertyName("sales_offer")]
+                    public SalesInvoiceSalesOffer SalesOffer { get; set; }
+                    [JsonPropertyName("sharings")]
+                    public SalesInvoiceSharings Sharings { get; set; }
+                    [JsonPropertyName("recurrence_plan")]
+                    public SalesInvoiceRecurrencePlan RecurrencePlan { get; set; }
+                    [JsonPropertyName("active_e_document")]
+                    public SalesInvoiceActiveEDocument ActiveEDocument { get; set; }
+                }
+                public class SalesInvoiceCategory {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceCategoryData Data { init; get; }
+                }
+                public class SalesInvoiceCategoryData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceContact {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceContactData Data { init; get; }
+                }
+                public class SalesInvoiceContactData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceDetails {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceDetailsData[] Data { init; get; }
+                }
+                public class SalesInvoiceDetailsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoicePayments {
+                    [JsonPropertyName("data")]
+                    public SalesInvoicePaymentsData[] Data { init; get; }
+                }
+                public class SalesInvoicePaymentsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceTags {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceTagsData[] Data { init; get; }
+                }
+                public class SalesInvoiceTagsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceSalesOffer {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceSalesOfferData Data { init; get; }
+                }
+                public class SalesInvoiceSalesOfferData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceSharings {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceSharingsData[] Data { init; get; }
+                }
+                public class SalesInvoiceSharingsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceRecurrencePlan {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceRecurrencePlanData Data { init; get; }
+                }
+                public class SalesInvoiceRecurrencePlanData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class SalesInvoiceActiveEDocument {
+                    [JsonPropertyName("data")]
+                    public SalesInvoiceActiveEDocumentData Data { init; get; }
+                }
+                public class SalesInvoiceActiveEDocumentData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EArchive : Response {
                 [JsonPropertyName("data")]
@@ -809,44 +809,44 @@ namespace Parasut {
                 public EArchiveAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EArchiveRelationships Relationships { init; get; }
-            }
-            public class EArchiveAttributes : EArchiveData {
-                [JsonPropertyName("uuid")]
-                public string UUID { init; get; }
-                [JsonPropertyName("vkn")]
-                public string VKN { init; get; }
-                [JsonPropertyName("invoice_number")]
-                public string InvoiceNumber { init; get; }
-                [JsonPropertyName("note")]
-                public string Note { init; get; }
-                [JsonPropertyName("is_printed")]
-                public bool? IsPrinted { init; get; }
-                [JsonPropertyName("status")]
-                public string Status { init; get; }
-                [JsonPropertyName("printed_at")]
-                public string PrintedAt { init; get; }
-                [JsonPropertyName("cancellable_until")]
-                public string CancellableUntil { init; get; }
-                [JsonPropertyName("is_signed")]
-                public bool? IsSigned { init; get; }
-                [JsonPropertyName("created_at")]
-                public string CreatedAt { init; get; }
-                [JsonPropertyName("updated_at")]
-                public string UpdatedAt { init; get; }
-            }
-            public class EArchiveRelationships : EArchiveData {
-                [JsonPropertyName("sales_invoice")]
-                public EArchiveSalesInvoice SalesInvoice { get; set; }
-            }
-            public class EArchiveSalesInvoice : EArchiveRelationships {
-                [JsonPropertyName("data")]
-                public EArchiveSalesInvoiceData Data { init; get; }
-            }
-            public class EArchiveSalesInvoiceData : EArchiveSalesInvoice {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class EArchiveAttributes {
+                    [JsonPropertyName("uuid")]
+                    public string UUID { init; get; }
+                    [JsonPropertyName("vkn")]
+                    public string VKN { init; get; }
+                    [JsonPropertyName("invoice_number")]
+                    public string InvoiceNumber { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("is_printed")]
+                    public bool? IsPrinted { init; get; }
+                    [JsonPropertyName("status")]
+                    public string Status { init; get; }
+                    [JsonPropertyName("printed_at")]
+                    public string PrintedAt { init; get; }
+                    [JsonPropertyName("cancellable_until")]
+                    public string CancellableUntil { init; get; }
+                    [JsonPropertyName("is_signed")]
+                    public bool? IsSigned { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class EArchiveRelationships {
+                    [JsonPropertyName("sales_invoice")]
+                    public EArchiveSalesInvoice SalesInvoice { get; set; }
+                }
+                public class EArchiveSalesInvoice {
+                    [JsonPropertyName("data")]
+                    public EArchiveSalesInvoiceData Data { init; get; }
+                }
+                public class EArchiveSalesInvoiceData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EInvoice : Response {
                 [JsonPropertyName("data")]
@@ -861,72 +861,72 @@ namespace Parasut {
                 public EInvoiceAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EInvoiceRelationships Relationships { init; get; }
-            }
-            public class EInvoiceAttributes : EInvoiceData {
-                [JsonPropertyName("external_id")]
-                public string ExternalId { init; get; }
-                [JsonPropertyName("uuid")]
-                public string UUID { init; get; }
-                [JsonPropertyName("env_uuid")]
-                public string EnvUUID { init; get; }
-                [JsonPropertyName("from_address")]
-                public string FromAddress { init; get; }
-                [JsonPropertyName("from_vkn")]
-                public string FromVKN { init; get; }
-                [JsonPropertyName("to_address")]
-                public string ToAddress { init; get; }
-                [JsonPropertyName("to_vkn")]
-                public string ToVKN { init; get; }
-                [JsonPropertyName("direction")]
-                public string Direction { init; get; }
-                [JsonPropertyName("note")]
-                public string Note { init; get; }
-                [JsonPropertyName("response_type")]
-                public string ResponseType { init; get; }
-                [JsonPropertyName("contact_name")]
-                public string ContactName { init; get; }
-                [JsonPropertyName("scenario")]
-                public string Scenario { init; get; }
-                [JsonPropertyName("status")]
-                public string Status { init; get; }
-                [JsonPropertyName("gtb_ref_no")]
-                public string GtbRefNo { init; get; }
-                [JsonPropertyName("gtb_registration_no")]
-                public string GtbRegistrationNo { init; get; }
-                [JsonPropertyName("gtb_export_date")]
-                public string GtbExportDate { init; get; }
-                [JsonPropertyName("response_note")]
-                public string ResponseNote { init; get; }
-                [JsonPropertyName("issue_date")]
-                public string IssueDate { init; get; }
-                [JsonPropertyName("is_expired")]
-                public bool? IsExpired { init; get; }
-                [JsonPropertyName("is_answerable")]
-                public bool? IsAnswerable { init; get; }
-                [JsonPropertyName("net_total")]
-                public string NetTotal { init; get; }
-                [JsonPropertyName("currency")]
-                public string Currency { init; get; }
-                [JsonPropertyName("item_type")]
-                public string ItemType { init; get; }
-                [JsonPropertyName("created_at")]
-                public string CreatedAt { init; get; }
-                [JsonPropertyName("updated_at")]
-                public string UpdatedAt { init; get; }
-            }
-            public class EInvoiceRelationships : EInvoiceData {
-                [JsonPropertyName("invoice")]
-                public EInvoiceInvoice Invoice { get; set; }
-            }
-            public class EInvoiceInvoice : EInvoiceRelationships {
-                [JsonPropertyName("data")]
-                public EInvoiceInvoiceData Data { init; get; }
-            }
-            public class EInvoiceInvoiceData : EInvoiceInvoice {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
+                public class EInvoiceAttributes {
+                    [JsonPropertyName("external_id")]
+                    public string ExternalId { init; get; }
+                    [JsonPropertyName("uuid")]
+                    public string UUID { init; get; }
+                    [JsonPropertyName("env_uuid")]
+                    public string EnvUUID { init; get; }
+                    [JsonPropertyName("from_address")]
+                    public string FromAddress { init; get; }
+                    [JsonPropertyName("from_vkn")]
+                    public string FromVKN { init; get; }
+                    [JsonPropertyName("to_address")]
+                    public string ToAddress { init; get; }
+                    [JsonPropertyName("to_vkn")]
+                    public string ToVKN { init; get; }
+                    [JsonPropertyName("direction")]
+                    public string Direction { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("response_type")]
+                    public string ResponseType { init; get; }
+                    [JsonPropertyName("contact_name")]
+                    public string ContactName { init; get; }
+                    [JsonPropertyName("scenario")]
+                    public string Scenario { init; get; }
+                    [JsonPropertyName("status")]
+                    public string Status { init; get; }
+                    [JsonPropertyName("gtb_ref_no")]
+                    public string GtbRefNo { init; get; }
+                    [JsonPropertyName("gtb_registration_no")]
+                    public string GtbRegistrationNo { init; get; }
+                    [JsonPropertyName("gtb_export_date")]
+                    public string GtbExportDate { init; get; }
+                    [JsonPropertyName("response_note")]
+                    public string ResponseNote { init; get; }
+                    [JsonPropertyName("issue_date")]
+                    public string IssueDate { init; get; }
+                    [JsonPropertyName("is_expired")]
+                    public bool? IsExpired { init; get; }
+                    [JsonPropertyName("is_answerable")]
+                    public bool? IsAnswerable { init; get; }
+                    [JsonPropertyName("net_total")]
+                    public string NetTotal { init; get; }
+                    [JsonPropertyName("currency")]
+                    public string Currency { init; get; }
+                    [JsonPropertyName("item_type")]
+                    public string ItemType { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class EInvoiceRelationships {
+                    [JsonPropertyName("invoice")]
+                    public EInvoiceInvoice Invoice { get; set; }
+                }
+                public class EInvoiceInvoice {
+                    [JsonPropertyName("data")]
+                    public EInvoiceInvoiceData Data { init; get; }
+                }
+                public class EInvoiceInvoiceData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class EArchivePDF : Response {
                 [JsonPropertyName("data")]
@@ -939,12 +939,12 @@ namespace Parasut {
                 public string Type { init; get; }
                 [JsonPropertyName("attributes")]
                 public EArchivePDFAttributes Attributes { init; get; }
-            }
-            public class EArchivePDFAttributes : EArchivePDFData {
-                [JsonPropertyName("url")]
-                public string Url { init; get; }
-                [JsonPropertyName("expires_at")]
-                public string ExpiresAt { init; get; }
+                public class EArchivePDFAttributes {
+                    [JsonPropertyName("url")]
+                    public string Url { init; get; }
+                    [JsonPropertyName("expires_at")]
+                    public string ExpiresAt { init; get; }
+                }
             }
             public class EInvoicePDF : Response {
                 [JsonPropertyName("data")]
@@ -957,12 +957,12 @@ namespace Parasut {
                 public string Type { init; get; }
                 [JsonPropertyName("attributes")]
                 public EInvoicePDFAttributes Attributes { init; get; }
-            }
-            public class EInvoicePDFAttributes : EInvoicePDFData {
-                [JsonPropertyName("url")]
-                public string Url { init; get; }
-                [JsonPropertyName("expires_at")]
-                public string ExpiresAt { init; get; }
+                public class EInvoicePDFAttributes {
+                    [JsonPropertyName("url")]
+                    public string Url { init; get; }
+                    [JsonPropertyName("expires_at")]
+                    public string ExpiresAt { init; get; }
+                }
             }
             public class EInvoiceInboxes : Response {
                 [JsonPropertyName("errors")]
@@ -983,24 +983,24 @@ namespace Parasut {
                 public string Type { init; get; }
                 [JsonPropertyName("attributes")]
                 public EInvoiceInboxesAttributes Attributes { init; get; }
-            }
-            public class EInvoiceInboxesAttributes : EInvoiceInboxesData {
-                [JsonPropertyName("vkn")]
-                public string VKN { init; get; }
-                [JsonPropertyName("e_invoice_address")]
-                public string EInvoiceAddress { init; get; }
-                [JsonPropertyName("name")]
-                public string Name { init; get; }
-                [JsonPropertyName("inbox_type")]
-                public string InboxType { init; get; }
-                [JsonPropertyName("address_registered_at")]
-                public string AddressRegisteredAt { init; get; }
-                [JsonPropertyName("registered_at")]
-                public string RegisteredAt { init; get; }
-                [JsonPropertyName("created_at")]
-                public string CreatedAt { init; get; }
-                [JsonPropertyName("updated_at")]
-                public string UpdatedAt { init; get; }
+                public class EInvoiceInboxesAttributes {
+                    [JsonPropertyName("vkn")]
+                    public string VKN { init; get; }
+                    [JsonPropertyName("e_invoice_address")]
+                    public string EInvoiceAddress { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("inbox_type")]
+                    public string InboxType { init; get; }
+                    [JsonPropertyName("address_registered_at")]
+                    public string AddressRegisteredAt { init; get; }
+                    [JsonPropertyName("registered_at")]
+                    public string RegisteredAt { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
             }
         }
         public void SetCompanyId(string companyid) {
