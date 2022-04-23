@@ -374,6 +374,9 @@ namespace Parasut {
                 public EArchiveData Data { init; get; }
             }
             public class EArchiveData : EArchive {
+                public EArchiveData() {
+                    Type = "e_archives";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
@@ -446,6 +449,9 @@ namespace Parasut {
                 public EInvoiceData Data { init; get; }
             }
             public class EInvoiceData : EInvoice {
+                public EInvoiceData() {
+                    Type = "e_invoices";
+                }
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
                 [JsonPropertyName("type")]
@@ -514,26 +520,6 @@ namespace Parasut {
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
-            }
-            public class EArchivePDF : Request {
-                [JsonPropertyName("data")]
-                public EArchivePDFData Data { init; get; }
-            }
-            public class EArchivePDFData : EArchivePDF {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
-            }
-            public class EInvoicePDF : Request {
-                [JsonPropertyName("data")]
-                public EInvoicePDFData Data { init; get; }
-            }
-            public class EInvoicePDFData : EInvoicePDF {
-                [JsonPropertyName("id")]
-                public string Id { init; get; }
-                [JsonPropertyName("type")]
-                public string Type { init; get; }
             }
         }
         public class Response {
