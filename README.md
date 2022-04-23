@@ -118,7 +118,7 @@ namespace Parasut {
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
             parasut.Authentication(); // required
-            var inboxes = parasut.ListEInvoiceInboxes("Vergi numarası");
+            var inboxes = parasut.ListEInvoiceInboxes("Müşteri vergi numarası");
             if (inboxes.Data.Any()) { // e-Fatura ise
                 foreach (var inbox in inboxes.Data) {
                     var einvoice = new Parasut.Request.EInvoice {
