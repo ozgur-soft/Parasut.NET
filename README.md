@@ -10,9 +10,6 @@ dotnet add package Parasut --version 1.0.1
 
 # Create Contact
 ```c#
-using System;
-using System.Text.Json;
-
 namespace Parasut {
     internal class Program {
         static void Main(string[] args) {
@@ -38,6 +35,8 @@ namespace Parasut {
                         TaxNumber = "",
                         // Vergi dairesi
                         TaxOffice = "",
+                        // Ülke
+                        Country = "",
                         // İl   
                         City = "",
                         // İlçe        
@@ -56,7 +55,86 @@ namespace Parasut {
                 }
             };
             var response = parasut.CreateContact(contact);
-            Console.WriteLine(Parasut.JsonString<Parasut.Response.ContactData>(response));
+            Console.WriteLine(Parasut.JsonString<Parasut.Response.Contact>(response));
+        }
+    }
+}
+```
+
+# Create Sales Invoice
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            parasut.Authentication(); // required
+            var invoice = new Parasut.Request.SalesInvoice {
+                Data = new() {
+                    Attributes = new() {
+                        // Fatura türü: "invoice", "export", "estimate", "cancelled", "recurring_invoice", "recurring_estimate", "recurring_export", "refund"
+                        ItemType = "invoice",
+                        // Fatura tarihi
+                        IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
+                        // Fatura açıklaması
+                        Description = "",
+                        // Vergi numarası
+                        TaxNumber = "11111111111",
+                        // Vergi dairesi
+                        TaxOffice = "",
+                        // Ülke
+                        Country = "",
+                        // İl   
+                        City = "",
+                        // İlçe        
+                        District = "",
+                        // Adres
+                        BillingAddress = "",
+                        // Telefon
+                        BillingPhone = "",
+                        // Faks    
+                        BillingFax = "",
+                        // Para birimi : "TRL", "USD", "EUR", "GBP"
+                        Currency = "TRL"
+                    },
+                    Relationships = new() {
+                        Contact = new() {
+                            Data = new() {
+                                // Paraşüt Müşteri ID (varsa)
+                                Id = ""
+                            }
+                        },
+                        Details = new() {
+                            Data = new Parasut.Request.SalesInvoiceData.SalesInvoiceDetailsData[] {
+                                new(){
+                                    Attributes = new() {
+                                        // Ürün miktarı
+                                        Quantity = "1",
+                                        // Ürün birim fiyatı
+                                        UnitPrice = (100 / 1.18).ToString("N4"), // 100 TL için kdv hariç fiyat formatı
+                                        // Ürün KDV oranı
+                                        VatRate = "18"
+                                    },
+                                    Relationships = new() {
+                                        Product = new() {
+                                            Data = new() {
+                                                // Paraşüt Ürün ID (varsa)
+                                                Id = ""
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            var response = parasut.CreateSalesInvoice(invoice);
+            Console.WriteLine(Parasut.JsonString<Parasut.Response.SalesInvoice>(response));
         }
     }
 }
@@ -64,8 +142,6 @@ namespace Parasut {
 
 # Get the PDF url of the invoice
 ```c#
-using System;
-
 namespace Parasut {
     internal class Program {
         static void Main(string[] args) {
@@ -77,15 +153,15 @@ namespace Parasut {
             parasut.SetPassword("API password");
             parasut.Authentication(); // required
             var invoice = parasut.ShowSalesInvoice("Invoice ID");
-            if (invoice != null) {
-                switch (invoice.Relationships.ActiveEDocument.Data.Type) {
+            if (invoice.Data != null) {
+                switch (invoice.Data.Relationships.ActiveEDocument.Data.Type) {
                     case "e_invoices":
-                        var einvoice = parasut.ShowEInvoicePDF(invoice.Relationships.ActiveEDocument.Data.Id);
-                        Console.WriteLine(einvoice.Attributes.Url);
+                        var einvoice = parasut.ShowEInvoicePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
+                        Console.WriteLine(einvoice.Data.Attributes.Url);
                         break;
                     case "e_archives":
-                        var earchive = parasut.ShowEArchivePDF(invoice.Relationships.ActiveEDocument.Data.Id);
-                        Console.WriteLine(earchive.Attributes.Url);
+                        var earchive = parasut.ShowEArchivePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
+                        Console.WriteLine(earchive.Data.Attributes.Url);
                         break;
                 }
             }
