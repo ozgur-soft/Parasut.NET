@@ -146,7 +146,7 @@ namespace Parasut {
                                 VatExemptionReasonCode = "", // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
                                 VatExemptionReason = "", // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
                                 VatWithholdingCode = "", // Tevkifat oranına ait vergi kodu (Varsa)
-                                                         // Internet satışı (varsa)
+                                // Internet satışı (varsa)
                                 InternetSale = new() {
                                     Url = "", // İnternet satışının yapıldığı url
                                     PaymentType = "", // Ödeme yöntemi : "KREDIKARTI/BANKAKARTI", "EFT/HAVALE", "KAPIDAODEME", "ODEMEARACISI"
