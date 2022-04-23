@@ -19,29 +19,31 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            parasut.Authentication(); // required
-            var contact = new Parasut.Request.Contact {
-                Data = new() {
-                    Attributes = new() {
-                        AccountType = "", // "customer" (Müşteri), "supplier" (Tedarikçi)
-                        ContactType = "", // "company" (Şirket), "person" (Şahıs)
-                        Name = "", // Müşteri Adı
-                        ShortName = "", // Kısa isim
-                        TaxNumber = "", // Vergi numarası
-                        TaxOffice = "", // Vergi dairesi
-                        Country = "", // Ülke
-                        City = "", // İl
-                        District = "", // İlçe
-                        Address = "", // Adres
-                        Phone = "", // Telefon
-                        Fax = "", // Faks
-                        Email = "", //  E-posta adresi
-                        IBAN = "" // IBAN numarası
+            var auth = parasut.Authentication();
+            if (auth) {
+                var contact = new Parasut.Request.Contact {
+                    Data = new() {
+                        Attributes = new() {
+                            AccountType = "", // "customer" (Müşteri), "supplier" (Tedarikçi)
+                            ContactType = "", // "company" (Şirket), "person" (Şahıs)
+                            Name = "", // Müşteri Adı
+                            ShortName = "", // Kısa isim
+                            TaxNumber = "", // Vergi numarası
+                            TaxOffice = "", // Vergi dairesi
+                            Country = "", // Ülke
+                            City = "", // İl
+                            District = "", // İlçe
+                            Address = "", // Adres
+                            Phone = "", // Telefon
+                            Fax = "", // Faks
+                            Email = "", //  E-posta adresi
+                            IBAN = "" // IBAN numarası
+                        }
                     }
-                }
-            };
-            var response = parasut.CreateContact(contact);
-            Console.WriteLine(Parasut.JsonString<Parasut.Response.Contact>(response));
+                };
+                var response = parasut.CreateContact(contact);
+                Console.WriteLine(Parasut.JsonString<Parasut.Response.Contact>(response));
+            }
         }
     }
 }
@@ -58,28 +60,29 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            parasut.Authentication(); // required
-            var invoice = new Parasut.Request.SalesInvoice {
-                Data = new() {
-                    Attributes = new() {
-                        ItemType = "invoice",
-                        Description = "", // Fatura açıklaması
-                        IssueDate = new DateTime(2022, 02, 20).ToString("yyyy-MM-dd"), // Fatura tarihi (Yıl-Ay-Gün)
-                        ShipmentIncluded = false, // İrsaliyeli fatura
-                        CashSale = true, // Peşin satış
-                        PaymentDate = new DateTime(2022, 02, 20).ToString("yyyy-MM-dd"), // Peşin ödeme tarihi (Yıl-Ay-Gün)
-                        PaymentDescription = "", // Peşin ödeme açıklaması
-                        PaymentAccountID = "", // Paraşüt Banka ID (zorunlu)
-                        Currency = "TRL" // Para birimi : "TRL", "USD", "EUR", "GBP"
-                    },
-                    Relationships = new() {
-                        Contact = new() {
-                            Data = new() {
-                                Id = "" // Paraşüt Müşteri ID (zorunlu)
-                            }
+            var auth = parasut.Authentication();
+            if (auth) {
+                var invoice = new Parasut.Request.SalesInvoice {
+                    Data = new() {
+                        Attributes = new() {
+                            ItemType = "invoice",
+                            Description = "", // Fatura açıklaması
+                            IssueDate = new DateTime(2022, 02, 20).ToString("yyyy-MM-dd"), // Fatura tarihi (Yıl-Ay-Gün)
+                            ShipmentIncluded = false, // İrsaliyeli fatura
+                            CashSale = true, // Peşin satış
+                            PaymentDate = new DateTime(2022, 02, 20).ToString("yyyy-MM-dd"), // Peşin ödeme tarihi (Yıl-Ay-Gün)
+                            PaymentDescription = "", // Peşin ödeme açıklaması
+                            PaymentAccountID = "", // Paraşüt Banka ID (zorunlu)
+                            Currency = "TRL" // Para birimi : "TRL", "USD", "EUR", "GBP"
                         },
-                        Details = new() {
-                            Data = new Parasut.Request.SalesInvoiceData.SalesInvoiceDetailsData[] {
+                        Relationships = new() {
+                            Contact = new() {
+                                Data = new() {
+                                    Id = "" // Paraşüt Müşteri ID (zorunlu)
+                                }
+                            },
+                            Details = new() {
+                                Data = new Parasut.Request.SalesInvoiceData.SalesInvoiceDetailsData[] {
                                 new(){
                                     Attributes = new() {
                                         Quantity = "1", // Ürün miktarı
@@ -95,12 +98,13 @@ namespace Parasut {
                                     }
                                 }
                             }
+                            }
                         }
                     }
-                }
-            };
-            var response = parasut.CreateSalesInvoice(invoice);
-            Console.WriteLine(Parasut.JsonString<Parasut.Response.SalesInvoice>(response));
+                };
+                var response = parasut.CreateSalesInvoice(invoice);
+                Console.WriteLine(Parasut.JsonString<Parasut.Response.SalesInvoice>(response));
+            }
         }
     }
 }
@@ -117,7 +121,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication(); // required
+            var auth = parasut.Authentication();
             if (auth) {
                 var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
                 if (invoice != null) {
@@ -186,18 +190,20 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            parasut.Authentication(); // required
-            var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
-            if (invoice != null) {
-                switch (invoice.Data.Relationships.ActiveEDocument.Data.Type) {
-                    case "e_invoices":
-                        var einvoice = parasut.ShowEInvoicePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
-                        Console.WriteLine(einvoice.Data.Attributes.Url);
-                        break;
-                    case "e_archives":
-                        var earchive = parasut.ShowEArchivePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
-                        Console.WriteLine(earchive.Data.Attributes.Url);
-                        break;
+            var auth = parasut.Authentication();
+            if (auth) {
+                var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
+                if (invoice != null) {
+                    switch (invoice.Data.Relationships.ActiveEDocument.Data.Type) {
+                        case "e_invoices":
+                            var einvoice = parasut.ShowEInvoicePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
+                            Console.WriteLine(einvoice.Data.Attributes.Url);
+                            break;
+                        case "e_archives":
+                            var earchive = parasut.ShowEArchivePDF(invoice.Data.Relationships.ActiveEDocument.Data.Id);
+                            Console.WriteLine(earchive.Data.Attributes.Url);
+                            break;
+                    }
                 }
             }
         }
