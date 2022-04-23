@@ -8,7 +8,7 @@ An easy-to-use parasut.com API (v4) with .NET
 dotnet add package Parasut --version 1.0.1
 ```
 
-# Create Contact
+# Müşteri/Tedarikçi oluştur
 ```c#
 namespace Parasut {
     internal class Program {
@@ -23,9 +23,9 @@ namespace Parasut {
             var contact = new Parasut.Request.Contact {
                 Data = new() {
                     Attributes = new() {
-                        // "customer" (Müşteri) || "supplier" (Tedarikçi)
+                        // "customer" (Müşteri), "supplier" (Tedarikçi)
                         AccountType = "",
-                        // "company" (Şirket) || "person" (Şahıs)
+                        // "company" (Şirket), "person" (Şahıs)
                         ContactType = "",
                         // Müşteri Adı
                         Name = "",
@@ -61,7 +61,7 @@ namespace Parasut {
 }
 ```
 
-# Create Sales Invoice
+# Peşin satış faturası oluştur
 ```c#
 namespace Parasut {
     internal class Program {
@@ -76,7 +76,6 @@ namespace Parasut {
             var invoice = new Parasut.Request.SalesInvoice {
                 Data = new() {
                     Attributes = new() {
-                        // Fatura türü: "invoice", "export", "estimate", "cancelled", "refund", "recurring_invoice", "recurring_export", "recurring_estimate"
                         ItemType = "invoice",
                         // Fatura açıklaması
                         Description = "",
@@ -134,7 +133,7 @@ namespace Parasut {
 }
 ```
 
-# Get the PDF url of the invoice
+# E-arşiv/E-fatura pdf adresi görüntüle
 ```c#
 namespace Parasut {
     internal class Program {
