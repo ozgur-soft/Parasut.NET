@@ -289,14 +289,74 @@ namespace Parasut {
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
+                    [JsonPropertyName("attributes")]
+                    public SalesInvoiceDetailsAttributes Attributes { init; get; }
+                    [JsonPropertyName("relationships")]
+                    public SalesInvoiceDetailsRelationships Relationships { init; get; }
+                    public class SalesInvoiceDetailsAttributes {
+                        [JsonPropertyName("quantity")]
+                        public string Quantity { init; get; }
+                        [JsonPropertyName("unit_price")]
+                        public string UnitPrice { init; get; }
+                        [JsonPropertyName("vat_rate")]
+                        public string VatRate { init; get; }
+                        [JsonPropertyName("discount_type")]
+                        public string DiscountType { init; get; }
+                        [JsonPropertyName("discount_value")]
+                        public string DiscountValue { init; get; }
+                        [JsonPropertyName("excise_duty_type")]
+                        public string ExciseDutyType { init; get; }
+                        [JsonPropertyName("excise_duty_value")]
+                        public string ExciseDutyValue { init; get; }
+                        [JsonPropertyName("communications_tax_rate")]
+                        public string CommunicationsTaxRate { init; get; }
+                        [JsonPropertyName("description")]
+                        public string Description { init; get; }
+                        [JsonPropertyName("delivery_method")]
+                        public string DeliveryMethod { init; get; }
+                        [JsonPropertyName("shipping_method")]
+                        public string ShippingMethod { init; get; }
+                    }
+                    public class SalesInvoiceDetailsRelationships {
+                        [JsonPropertyName("product")]
+                        public SalesInvoiceDetailsProduct Product { get; set; }
+                        [JsonPropertyName("warehouse")]
+                        public SalesInvoiceDetailsWarehouse Warehouse { get; set; }
+                    }
+                    public class SalesInvoiceDetailsProduct {
+                        [JsonPropertyName("data")]
+                        public SalesInvoiceDetailsProductData Data { init; get; }
+                    }
+                    public class SalesInvoiceDetailsProductData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
+                    public class SalesInvoiceDetailsWarehouse {
+                        [JsonPropertyName("data")]
+                        public SalesInvoiceDetailsWarehouseData Data { init; get; }
+                    }
+                    public class SalesInvoiceDetailsWarehouseData {
+                        [JsonPropertyName("id")]
+                        public string Id { init; get; }
+                        [JsonPropertyName("type")]
+                        public string Type { init; get; }
+                    }
                 }
                 public class SalesInvoiceTagsData {
+                    public SalesInvoiceTagsData() {
+                        Type = "tags";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
                 public class SalesInvoiceSalesOfferData {
+                    public SalesInvoiceSalesOfferData() {
+                        Type = "sales_offers";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
