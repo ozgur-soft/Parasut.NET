@@ -739,12 +739,6 @@ namespace Parasut {
                     public string City { init; get; }
                     [JsonPropertyName("district")]
                     public string District { init; get; }
-                    [JsonPropertyName("payment_account_id")]
-                    public string PaymentAccountID { init; get; }
-                    [JsonPropertyName("payment_date")]
-                    public string PaymentDate { init; get; }
-                    [JsonPropertyName("payment_description")]
-                    public string PaymentDescription { init; get; }
                     [JsonPropertyName("payment_status")]
                     public string PaymentStatus { init; get; }
                     [JsonPropertyName("shipment_addres")]
@@ -904,11 +898,11 @@ namespace Parasut {
                     [JsonPropertyName("is_signed")]
                     public bool? IsSigned { init; get; }
                     [JsonPropertyName("printed_at")]
-                    public string PrintedAt { init; get; }
+                    public long? PrintedAt { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
                 }
                 public class EArchiveLinks {
                     [JsonPropertyName("self")]
@@ -994,9 +988,9 @@ namespace Parasut {
                     [JsonPropertyName("item_type")]
                     public string ItemType { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
                 }
                 public class EInvoiceLinks {
                     [JsonPropertyName("self")]
@@ -1087,6 +1081,26 @@ namespace Parasut {
                     public string CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
                     public string UpdatedAt { init; get; }
+                }
+            }
+            public class TrackableJob : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public TrackableJobData Data { init; get; }
+            }
+            public class TrackableJobData : TrackableJob {
+                [JsonPropertyName("id")]
+                public string Id { init; get; }
+                [JsonPropertyName("type")]
+                public string Type { init; get; }
+                [JsonPropertyName("attributes")]
+                public TrackableJobAttributes Attributes { init; get; }
+                public class TrackableJobAttributes {
+                    [JsonPropertyName("status")]
+                    public string Status { init; get; }
+                    [JsonPropertyName("errors")]
+                    public string[] Errors { init; get; }
                 }
             }
             public class ResponseError {
@@ -1249,6 +1263,13 @@ namespace Parasut {
             var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoice_inboxes?filter[vkn]=" + vkn);
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoiceInboxes>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.TrackableJob TrackJob(string id) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/trackable_jobs/" + id);
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.TrackableJob>(response.Content.ReadAsStream());
             return result;
         }
         public static string QueryString<T>(T data) where T : class {
