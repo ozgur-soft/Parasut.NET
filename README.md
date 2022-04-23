@@ -212,3 +212,29 @@ namespace Parasut {
     }
 }
 ```
+
+# E-arşiv fatura iptal etme
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            var auth = parasut.Authentication();
+            if (auth) {
+                var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
+                if (invoice != null) {
+                    if (invoice.Data.Relationships.ActiveEDocument.Data.Type == "e_archives") {
+                        var response = parasut.CancelSalesInvoice(invoice.Data.Id);
+                        Console.WriteLine(Parasut.JsonString<Parasut.Response.SalesInvoice>(response));
+                    }
+                }
+            }
+        }
+    }
+}
+```
