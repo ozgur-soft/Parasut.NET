@@ -181,7 +181,7 @@ namespace Parasut {
                     [JsonPropertyName("description")]
                     public string Description { init; get; }
                     [JsonPropertyName("issue_date")]
-                    public DateTime? IssueDate { init; get; }
+                    public DateOnly? IssueDate { init; get; }
                     [JsonPropertyName("due_date")]
                     public DateTime? DueDate { init; get; }
                     [JsonPropertyName("order_date")]
@@ -253,7 +253,7 @@ namespace Parasut {
                 }
                 public class SalesInvoiceDetails {
                     [JsonPropertyName("data")]
-                    public SalesInvoiceDetailsData Data { init; get; }
+                    public SalesInvoiceDetailsData[] Data { init; get; }
                 }
                 public class SalesInvoiceTags {
                     [JsonPropertyName("data")]
@@ -264,18 +264,27 @@ namespace Parasut {
                     public SalesInvoiceSalesOfferData Data { init; get; }
                 }
                 public class SalesInvoiceCategoryData {
+                    public SalesInvoiceCategoryData() {
+                        Type = "item_categories";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
                 public class SalesInvoiceContactData {
+                    public SalesInvoiceContactData() {
+                        Type = "contacts";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
                 public class SalesInvoiceDetailsData {
+                    public SalesInvoiceDetailsData() {
+                        Type = "sales_invoice_details";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
