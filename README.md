@@ -76,28 +76,22 @@ namespace Parasut {
             var invoice = new Parasut.Request.SalesInvoice {
                 Data = new() {
                     Attributes = new() {
-                        // Fatura türü: "invoice", "export", "estimate", "cancelled", "recurring_invoice", "recurring_estimate", "recurring_export", "refund"
+                        // Fatura türü: "invoice", "export", "estimate", "cancelled", "refund", "recurring_invoice", "recurring_export", "recurring_estimate"
                         ItemType = "invoice",
-                        // Fatura tarihi
-                        IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
                         // Fatura açıklaması
                         Description = "",
-                        // Vergi numarası
-                        TaxNumber = "11111111111",
-                        // Vergi dairesi
-                        TaxOffice = "",
-                        // Ülke
-                        Country = "",
-                        // İl   
-                        City = "",
-                        // İlçe        
-                        District = "",
-                        // Adres
-                        BillingAddress = "",
-                        // Telefon
-                        BillingPhone = "",
-                        // Faks    
-                        BillingFax = "",
+                        // Fatura tarihi
+                        IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
+                        // İrsaliyeli fatura
+                        ShipmentIncluded = false,
+                        // Peşin satış
+                        CashSale = true,
+                        // Peşin ödeme tarihi
+                        PaymentDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
+                        // Peşin ödeme açıklaması
+                        PaymentDescription = "",
+                        // Paraşüt Banka ID
+                        PaymentAccountID = "",
                         // Para birimi : "TRL", "USD", "EUR", "GBP"
                         Currency = "TRL"
                     },
@@ -115,7 +109,7 @@ namespace Parasut {
                                         // Ürün miktarı
                                         Quantity = "1",
                                         // Ürün birim fiyatı
-                                        UnitPrice = (100 / 1.18).ToString("N4", Globalization.CultureInfo.InvariantCulture), // 100 TL için kdv hariç fiyat formatı
+                                        UnitPrice = (100 / 1.18).ToString("N4", System.Globalization.CultureInfo.InvariantCulture), // 100 TL için kdv hariç fiyat formatı
                                         // Ürün KDV oranı
                                         VatRate = "18"
                                     },
