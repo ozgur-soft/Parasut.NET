@@ -8,7 +8,7 @@ An easy-to-use parasut.com API (v4) with .NET
 dotnet add package Parasut --version 1.0.1
 ```
 
-# Müşteri/Tedarikçi oluştur
+# Müşteri/Tedarikçi oluşturma
 ```c#
 namespace Parasut {
     internal class Program {
@@ -61,7 +61,7 @@ namespace Parasut {
 }
 ```
 
-# Peşin satış faturası oluştur
+# Peşin satış faturası oluşturma
 ```c#
 namespace Parasut {
     internal class Program {
@@ -79,13 +79,13 @@ namespace Parasut {
                         ItemType = "invoice",
                         // Fatura açıklaması
                         Description = "",
-                        // Fatura tarihi
+                        // Fatura tarihi (Yıl-Ay-Gün)
                         IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
                         // İrsaliyeli fatura
                         ShipmentIncluded = false,
                         // Peşin satış
                         CashSale = true,
-                        // Peşin ödeme tarihi
+                        // Peşin ödeme tarihi (Yıl-Ay-Gün)
                         PaymentDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
                         // Peşin ödeme açıklaması
                         PaymentDescription = "",
@@ -97,8 +97,7 @@ namespace Parasut {
                     Relationships = new() {
                         Contact = new() {
                             Data = new() {
-                                // Paraşüt Müşteri ID (zorunlu)
-                                Id = ""
+                                Id = "" // Paraşüt Müşteri ID (zorunlu)
                             }
                         },
                         Details = new() {
@@ -115,8 +114,7 @@ namespace Parasut {
                                     Relationships = new() {
                                         Product = new() {
                                             Data = new() {
-                                                // Paraşüt Ürün ID (varsa)
-                                                Id = ""
+                                                Id = "" // Paraşüt Ürün ID (varsa)
                                             }
                                         }
                                     }
@@ -133,7 +131,88 @@ namespace Parasut {
 }
 ```
 
-# E-arşiv/E-fatura pdf adresi görüntüle
+# Satış faturası resmileştirme
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            parasut.Authentication(); // required
+            var inboxes = parasut.ListEInvoiceInboxes("vergi numarası");
+            if (inboxes.Data.Any()) { // e-Fatura ise
+                foreach (var inbox in inboxes.Data) {
+                    var einvoice = new Parasut.Request.EInvoice {
+                        Data = new() {
+                            Attributes = new() {
+                                To = inbox.Attributes.EInvoiceAddress,
+                                // "basic" (Temel e-Fatura) || "commercial" (Ticari e-Fatura)
+                                Scenario = "basic",
+                                // Fatura notu
+                                Note = "",
+                                // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
+                                VatExemptionReasonCode = "",
+                                // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
+                                VatExemptionReason = "",
+                                // Tevkifat oranına ait vergi kodu (Varsa)
+                                VatWithholdingCode = "",
+                            },
+                            Relationships = new() {
+                                Invoice = new() {
+                                    Data = new() {
+                                        Id = "" // Paraşüt Fatura ID (zorunlu)
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    parasut.CreateEInvoice(einvoice);
+                }
+            } else { // e-Arşiv ise
+                var earchive = new Parasut.Request.EArchive {
+                    Data = new() {
+                        Attributes = new() {
+                            // Fatura notu
+                            Note = "",
+                            // Internet satışı (varsa)
+                            InternetSale = new() {
+                                // İnternet satışının yapıldığı url
+                                Url = "",
+                                // "KREDIKARTI/BANKAKARTI", "EFT/HAVALE", "KAPIDAODEME", "ODEMEARACISI" (Ödeme yöntemi)
+                                PaymentType = "",
+                                // Ödeme tarihi (Yıl-Ay-Gün)
+                                PaymentDate = "",
+                                // Ödeme platformu (iyzico,payu,banka adı vb.)
+                                PaymentPlatform = ""
+                            },
+                            // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
+                            VatExemptionReasonCode = "",
+                            // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
+                            VatExemptionReason = "",
+                            // Tevkifat oranına ait vergi kodu (Varsa)
+                            VatWithholdingCode = ""
+                        },
+                        Relationships = new() {
+                            SalesInvoice = new() {
+                                Data = new() {
+                                    Id = "" // Paraşüt Fatura ID (zorunlu)
+                                }
+                            }
+                        }
+                    }
+                };
+                parasut.CreateEArchive(earchive);
+            }
+        }
+    }
+}
+```
+
+# E-arşiv/E-fatura pdf adresi görüntüleme
 ```c#
 namespace Parasut {
     internal class Program {
