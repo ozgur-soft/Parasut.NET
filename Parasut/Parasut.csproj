@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Version>1.0.1</Version>
+		<Version>1.1.0</Version>
 		<RepositoryUrl>https://github.com/ozgur-soft/Parasut.NET</RepositoryUrl>
 		<Authors>Özgür Yalçın</Authors>
 		<Company>Özgürsoft</Company>
