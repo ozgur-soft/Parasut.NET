@@ -23,34 +23,20 @@ namespace Parasut {
             var contact = new Parasut.Request.Contact {
                 Data = new() {
                     Attributes = new() {
-                        // "customer" (Müşteri), "supplier" (Tedarikçi)
-                        AccountType = "",
-                        // "company" (Şirket), "person" (Şahıs)
-                        ContactType = "",
-                        // Müşteri Adı
-                        Name = "",
-                        // Kısa isim            
-                        ShortName = "",
-                        // Vergi numarası         
-                        TaxNumber = "",
-                        // Vergi dairesi
-                        TaxOffice = "",
-                        // Ülke
-                        Country = "",
-                        // İl   
-                        City = "",
-                        // İlçe        
-                        District = "",
-                        // Adres
-                        Address = "",
-                        // Telefon
-                        Phone = "",
-                        // Faks    
-                        Fax = "",
-                        //  E-posta adresi
-                        Email = "",
-                        // IBAN numarası
-                        IBAN = "",
+                        AccountType = "", // "customer" (Müşteri), "supplier" (Tedarikçi)
+                        ContactType = "", // "company" (Şirket), "person" (Şahıs)
+                        Name = "", // Müşteri Adı
+                        ShortName = "", // Kısa isim
+                        TaxNumber = "", // Vergi numarası
+                        TaxOffice = "", // Vergi dairesi
+                        Country = "", // Ülke
+                        City = "", // İl
+                        District = "", // İlçe
+                        Address = "", // Adres
+                        Phone = "", // Telefon
+                        Fax = "", // Faks
+                        Email = "", //  E-posta adresi
+                        IBAN = "" // IBAN numarası
                     }
                 }
             };
@@ -77,22 +63,14 @@ namespace Parasut {
                 Data = new() {
                     Attributes = new() {
                         ItemType = "invoice",
-                        // Fatura açıklaması
-                        Description = "",
-                        // Fatura tarihi (Yıl-Ay-Gün)
-                        IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
-                        // İrsaliyeli fatura
-                        ShipmentIncluded = false,
-                        // Peşin satış
-                        CashSale = true,
-                        // Peşin ödeme tarihi (Yıl-Ay-Gün)
-                        PaymentDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
-                        // Peşin ödeme açıklaması
-                        PaymentDescription = "",
-                        // Paraşüt Banka ID (zorunlu)
-                        PaymentAccountID = "",
-                        // Para birimi : "TRL", "USD", "EUR", "GBP"
-                        Currency = "TRL"
+                        Description = "", // Fatura açıklaması
+                        IssueDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"), // Fatura tarihi (Yıl-Ay-Gün)
+                        ShipmentIncluded = false, // İrsaliyeli fatura
+                        CashSale = true, // Peşin satış
+                        PaymentDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"), // Peşin ödeme tarihi (Yıl-Ay-Gün)
+                        PaymentDescription = "", // Peşin ödeme açıklaması
+                        PaymentAccountID = "", // Paraşüt Banka ID (zorunlu)
+                        Currency = "TRL" // Para birimi : "TRL", "USD", "EUR", "GBP"
                     },
                     Relationships = new() {
                         Contact = new() {
@@ -104,12 +82,9 @@ namespace Parasut {
                             Data = new Parasut.Request.SalesInvoiceData.SalesInvoiceDetailsData[] {
                                 new(){
                                     Attributes = new() {
-                                        // Ürün miktarı
-                                        Quantity = "1",
-                                        // Ürün birim fiyatı
-                                        UnitPrice = (100 / 1.18).ToString("N4", System.Globalization.CultureInfo.InvariantCulture), // 100 TL için kdv hariç fiyat formatı
-                                        // Ürün KDV oranı
-                                        VatRate = "18"
+                                        Quantity = "1", // Ürün miktarı
+                                        UnitPrice = "1.00", // Ürün birim fiyatı (KDV hariç)
+                                        VatRate = "18" // Ürün KDV oranı
                                     },
                                     Relationships = new() {
                                         Product = new() {
@@ -143,23 +118,18 @@ namespace Parasut {
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
             parasut.Authentication(); // required
-            var inboxes = parasut.ListEInvoiceInboxes("vergi numarası");
+            var inboxes = parasut.ListEInvoiceInboxes("Vergi numarası");
             if (inboxes.Data.Any()) { // e-Fatura ise
                 foreach (var inbox in inboxes.Data) {
                     var einvoice = new Parasut.Request.EInvoice {
                         Data = new() {
                             Attributes = new() {
                                 To = inbox.Attributes.EInvoiceAddress,
-                                // "basic" (Temel e-Fatura) || "commercial" (Ticari e-Fatura)
-                                Scenario = "basic",
-                                // Fatura notu
-                                Note = "",
-                                // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
-                                VatExemptionReasonCode = "",
-                                // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
-                                VatExemptionReason = "",
-                                // Tevkifat oranına ait vergi kodu (Varsa)
-                                VatWithholdingCode = "",
+                                Scenario = "basic", // "basic" (Temel e-Fatura), "commercial" (Ticari e-Fatura)
+                                Note = "", // Fatura notu
+                                VatExemptionReasonCode = "", // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
+                                VatExemptionReason = "", // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
+                                VatWithholdingCode = "" // Tevkifat oranına ait vergi kodu (Varsa)
                             },
                             Relationships = new() {
                                 Invoice = new() {
@@ -176,25 +146,17 @@ namespace Parasut {
                 var earchive = new Parasut.Request.EArchive {
                     Data = new() {
                         Attributes = new() {
-                            // Fatura notu
-                            Note = "",
+                            Note = "", // Fatura notu
+                            VatExemptionReasonCode = "", // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
+                            VatExemptionReason = "", // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
+                            VatWithholdingCode = "", // Tevkifat oranına ait vergi kodu (Varsa)
                             // Internet satışı (varsa)
                             InternetSale = new() {
-                                // İnternet satışının yapıldığı url
-                                Url = "",
-                                // "KREDIKARTI/BANKAKARTI", "EFT/HAVALE", "KAPIDAODEME", "ODEMEARACISI" (Ödeme yöntemi)
-                                PaymentType = "",
-                                // Ödeme tarihi (Yıl-Ay-Gün)
-                                PaymentDate = "",
-                                // Ödeme platformu (iyzico,payu,banka adı vb.)
-                                PaymentPlatform = ""
-                            },
-                            // Firma KDV den muaf ise muafiyet sebebi kodu (Varsa)
-                            VatExemptionReasonCode = "",
-                            // Firma KDV den muaf ise muafiyet sebebi açıklaması (Varsa)
-                            VatExemptionReason = "",
-                            // Tevkifat oranına ait vergi kodu (Varsa)
-                            VatWithholdingCode = ""
+                                Url = "", // İnternet satışının yapıldığı url
+                                PaymentType = "", // Ödeme yöntemi : "KREDIKARTI/BANKAKARTI", "EFT/HAVALE", "KAPIDAODEME", "ODEMEARACISI"
+                                PaymentDate = "", // Ödeme tarihi (Yıl-Ay-Gün)
+                                PaymentPlatform = "" // Ödeme platformu (iyzico,payu,banka adı vb.)
+                            }
                         },
                         Relationships = new() {
                             SalesInvoice = new() {
@@ -224,7 +186,7 @@ namespace Parasut {
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
             parasut.Authentication(); // required
-            var invoice = parasut.ShowSalesInvoice("Invoice ID");
+            var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
             if (invoice.Data != null) {
                 switch (invoice.Data.Relationships.ActiveEDocument.Data.Type) {
                     case "e_invoices":
