@@ -90,7 +90,7 @@ namespace Parasut {
                         PaymentDate = new DateTime(2020, 02, 20).ToString("yyyy-MM-dd"),
                         // Peşin ödeme açıklaması
                         PaymentDescription = "",
-                        // Paraşüt Banka ID
+                        // Paraşüt Banka ID (zorunlu)
                         PaymentAccountID = "",
                         // Para birimi : "TRL", "USD", "EUR", "GBP"
                         Currency = "TRL"
@@ -98,7 +98,7 @@ namespace Parasut {
                     Relationships = new() {
                         Contact = new() {
                             Data = new() {
-                                // Paraşüt Müşteri ID (varsa)
+                                // Paraşüt Müşteri ID (zorunlu)
                                 Id = ""
                             }
                         },
