@@ -115,7 +115,7 @@ namespace Parasut {
                                         // Ürün miktarı
                                         Quantity = "1",
                                         // Ürün birim fiyatı
-                                        UnitPrice = (100 / 1.18).ToString("N4"), // 100 TL için kdv hariç fiyat formatı
+                                        UnitPrice = (100 / 1.18).ToString("N4", Globalization.CultureInfo.InvariantCulture), // 100 TL için kdv hariç fiyat formatı
                                         // Ürün KDV oranı
                                         VatRate = "18"
                                     },
