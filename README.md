@@ -89,7 +89,7 @@ namespace Parasut {
                                     Relationships = new() {
                                         Product = new() {
                                             Data = new() {
-                                                Id = "" // Paraşüt Ürün ID (varsa)
+                                                Id = "" // Paraşüt Ürün ID (zorunlu)
                                             }
                                         }
                                     }
@@ -150,8 +150,8 @@ namespace Parasut {
                                 InternetSale = new() {
                                     Url = "", // İnternet satışının yapıldığı url
                                     PaymentType = "", // Ödeme yöntemi : "KREDIKARTI/BANKAKARTI", "EFT/HAVALE", "KAPIDAODEME", "ODEMEARACISI"
-                                    PaymentDate = "", // Ödeme tarihi (Yıl-Ay-Gün)
-                                    PaymentPlatform = "" // Ödeme platformu (iyzico,payu,banka adı vb.)
+                                    PaymentPlatform = "", // Ödeme platformu (iyzico,payu,banka adı vb.)
+                                    PaymentDate = invoice.Data.Attributes.PaymentDate
                                 }
                             },
                             Relationships = new() { SalesInvoice = new() { Data = new() { Id = invoice.Data.Id } } }
