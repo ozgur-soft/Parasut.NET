@@ -12,7 +12,7 @@ namespace Parasut {
         void SetClientSecret(string clientsecret);
         void SetUsername(string username);
         void SetPassword(string password);
-        void Authentication();
+        bool Authentication();
         Parasut.Response.SalesInvoice CreateSalesInvoice(Parasut.Request.SalesInvoice data);
         Parasut.Response.SalesInvoice ShowSalesInvoice(string id);
         Parasut.Response.SalesInvoice DeleteSalesInvoice(string id);
@@ -539,9 +539,11 @@ namespace Parasut {
                 [JsonPropertyName("expires_in")]
                 public int? ExpiresIn { init; get; }
                 [JsonPropertyName("created_at")]
-                public long CreatedAt { init; get; }
+                public long? CreatedAt { init; get; }
                 [JsonPropertyName("scope")]
                 public string Scope { init; get; }
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
             }
             public class Contact : Response {
                 [JsonPropertyName("errors")]
@@ -604,9 +606,9 @@ namespace Parasut {
                     [JsonPropertyName("untrackable")]
                     public bool? Untrackable { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
                 }
                 public class ContactRelationships {
                     [JsonPropertyName("category")]
@@ -698,9 +700,9 @@ namespace Parasut {
                     [JsonPropertyName("remaining_in_trl")]
                     public string RemainingInTrl { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
                     [JsonPropertyName("item_type")]
                     public string ItemType { init; get; }
                     [JsonPropertyName("description")]
@@ -882,6 +884,8 @@ namespace Parasut {
                 public EArchiveAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EArchiveRelationships Relationships { init; get; }
+                [JsonPropertyName("links")]
+                public EArchiveLinks Links { init; get; }
                 public class EArchiveAttributes {
                     [JsonPropertyName("uuid")]
                     public string UUID { init; get; }
@@ -895,16 +899,20 @@ namespace Parasut {
                     public bool? IsPrinted { init; get; }
                     [JsonPropertyName("status")]
                     public string Status { init; get; }
-                    [JsonPropertyName("printed_at")]
-                    public string PrintedAt { init; get; }
                     [JsonPropertyName("cancellable_until")]
                     public string CancellableUntil { init; get; }
                     [JsonPropertyName("is_signed")]
                     public bool? IsSigned { init; get; }
+                    [JsonPropertyName("printed_at")]
+                    public long? PrintedAt { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
+                }
+                public class EArchiveLinks {
+                    [JsonPropertyName("self")]
+                    public string Self { init; get; }
                 }
                 public class EArchiveRelationships {
                     [JsonPropertyName("sales_invoice")]
@@ -936,6 +944,8 @@ namespace Parasut {
                 public EInvoiceAttributes Attributes { init; get; }
                 [JsonPropertyName("relationships")]
                 public EInvoiceRelationships Relationships { init; get; }
+                [JsonPropertyName("links")]
+                public EInvoiceLinks Links { init; get; }
                 public class EInvoiceAttributes {
                     [JsonPropertyName("external_id")]
                     public string ExternalId { init; get; }
@@ -984,9 +994,13 @@ namespace Parasut {
                     [JsonPropertyName("item_type")]
                     public string ItemType { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
+                }
+                public class EInvoiceLinks {
+                    [JsonPropertyName("self")]
+                    public string Self { init; get; }
                 }
                 public class EInvoiceRelationships {
                     [JsonPropertyName("invoice")]
@@ -1020,7 +1034,7 @@ namespace Parasut {
                     [JsonPropertyName("url")]
                     public string Url { init; get; }
                     [JsonPropertyName("expires_at")]
-                    public string ExpiresAt { init; get; }
+                    public long? ExpiresAt { init; get; }
                 }
             }
             public class EInvoicePDF : Response {
@@ -1040,7 +1054,7 @@ namespace Parasut {
                     [JsonPropertyName("url")]
                     public string Url { init; get; }
                     [JsonPropertyName("expires_at")]
-                    public string ExpiresAt { init; get; }
+                    public long? ExpiresAt { init; get; }
                 }
             }
             public class EInvoiceInboxes : Response {
@@ -1066,13 +1080,13 @@ namespace Parasut {
                     [JsonPropertyName("inbox_type")]
                     public string InboxType { init; get; }
                     [JsonPropertyName("address_registered_at")]
-                    public string AddressRegisteredAt { init; get; }
+                    public long? AddressRegisteredAt { init; get; }
                     [JsonPropertyName("registered_at")]
-                    public string RegisteredAt { init; get; }
+                    public long? RegisteredAt { init; get; }
                     [JsonPropertyName("created_at")]
-                    public string CreatedAt { init; get; }
+                    public long? CreatedAt { init; get; }
                     [JsonPropertyName("updated_at")]
-                    public string UpdatedAt { init; get; }
+                    public long? UpdatedAt { init; get; }
                 }
             }
             public class ResponseError {
@@ -1097,14 +1111,19 @@ namespace Parasut {
         public void SetPassword(string password) {
             Password = password;
         }
-        public void Authentication() {
+        public bool Authentication() {
             try {
                 var http = new HttpClient();
                 var data = new Request.Authentication { ClientId = ClientId, ClientSecret = ClientSecret, Username = Username, Password = Password, GrantType = "password", RedirectURI = "urn:ietf:wg:oauth:2.0:oob" };
                 var request = new HttpRequestMessage(HttpMethod.Post, "https://api.parasut.com/oauth/token") { Content = new StringContent(QueryString(data), Encoding.UTF8, "application/x-www-form-urlencoded") };
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.Authentication>(response.Content.ReadAsStream());
-                Token = result.AccessToken;
+                if (result.Errors.Any()) {
+                    return false;
+                } else {
+                    Token = result.AccessToken;
+                    return true;
+                }
             } catch (Exception err) {
                 if (err.InnerException != null) {
                     Console.WriteLine(err.InnerException.Message);
@@ -1112,6 +1131,7 @@ namespace Parasut {
                     Console.WriteLine(err.Message);
                 }
             }
+            return false;
         }
         public Response.Contact CreateContact(Request.Contact data) {
             try {
@@ -1164,7 +1184,6 @@ namespace Parasut {
         public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice data) {
             try {
                 var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-                Console.WriteLine(JsonString(data));
                 var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
                 var response = http.Send(request);
                 var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
