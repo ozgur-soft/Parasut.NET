@@ -145,6 +145,7 @@ namespace Parasut {
                                     Console.WriteLine(Parasut.JsonString<Parasut.Response.TrackableJob>(job));
                                     break;
                                 }
+                                System.Threading.Thread.Sleep(2000);
                             }
                         }
                     } else { // e-Arşiv ise
@@ -170,6 +171,7 @@ namespace Parasut {
                                 Console.WriteLine(Parasut.JsonString<Parasut.Response.TrackableJob>(job));
                                 break;
                             }
+                            System.Threading.Thread.Sleep(2000);
                         }
                     }
                 }
