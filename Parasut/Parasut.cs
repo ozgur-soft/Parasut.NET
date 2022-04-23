@@ -386,20 +386,20 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public EArchiveRelationships Relationships { init; get; }
                 public class EArchiveAttributes {
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("internet_sale")]
+                    public InternetSaleData InternetSale { init; get; }
+                    [JsonPropertyName("shipment")]
+                    public ShipmentData Shipment { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public EArchiveExciseDutyCode[] ExciseDutyCodes { init; get; }
                     [JsonPropertyName("vat_withholding_code")]
                     public string VatWithholdingCode { init; get; }
                     [JsonPropertyName("vat_exemption_reason_code")]
                     public string VatExemptionReasonCode { init; get; }
                     [JsonPropertyName("vat_exemption_reason")]
                     public string VatExemptionReason { init; get; }
-                    [JsonPropertyName("note")]
-                    public string Note { init; get; }
-                    [JsonPropertyName("excise_duty_codes")]
-                    public EArchiveExciseDutyCode[] ExciseDutyCodes { init; get; }
-                    [JsonPropertyName("internet_sale")]
-                    public InternetSaleData InternetSale { init; get; }
-                    [JsonPropertyName("shipment")]
-                    public ShipmentData Shipment { init; get; }
                 }
                 public class EArchiveRelationships {
                     [JsonPropertyName("sales_invoice")]
@@ -461,20 +461,20 @@ namespace Parasut {
                 [JsonPropertyName("relationships")]
                 public EInvoiceRelationships Relationships { init; get; }
                 public class EInvoiceAttributes {
+                    [JsonPropertyName("to")]
+                    public string To { init; get; }
+                    [JsonPropertyName("scenario")]
+                    public string Scenario { init; get; }
+                    [JsonPropertyName("note")]
+                    public string Note { init; get; }
+                    [JsonPropertyName("excise_duty_codes")]
+                    public EInvoiceExciseDutyCode[] ExciseDutyCodes { init; get; }
                     [JsonPropertyName("vat_withholding_code")]
                     public string VatWithholdingCode { init; get; }
                     [JsonPropertyName("vat_exemption_reason_code")]
                     public string VatExemptionReasonCode { init; get; }
                     [JsonPropertyName("vat_exemption_reason")]
                     public string VatExemptionReason { init; get; }
-                    [JsonPropertyName("note")]
-                    public string Note { init; get; }
-                    [JsonPropertyName("excise_duty_codes")]
-                    public EInvoiceExciseDutyCode[] ExciseDutyCodes { init; get; }
-                    [JsonPropertyName("scenario")]
-                    public string Scenario { init; get; }
-                    [JsonPropertyName("to")]
-                    public string To { init; get; }
                     [JsonPropertyName("custom_requirement_params")]
                     public CustomRequirementParam CustomRequirementParams { init; get; }
                 }
