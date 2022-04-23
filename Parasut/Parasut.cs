@@ -438,6 +438,9 @@ namespace Parasut {
                     public EArchiveSalesInvoiceData Data { init; get; }
                 }
                 public class EArchiveSalesInvoiceData {
+                    public EArchiveSalesInvoiceData() {
+                        Type = "sales_invoices";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
@@ -515,6 +518,9 @@ namespace Parasut {
                     public EInvoiceInvoiceData Data { init; get; }
                 }
                 public class EInvoiceInvoiceData {
+                    public EInvoiceInvoiceData() {
+                        Type = "sales_invoices";
+                    }
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
