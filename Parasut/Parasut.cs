@@ -1148,7 +1148,7 @@ namespace Parasut {
         }
         public Response.Contacts SearchContact(Request.Contact.ContactData.ContactAttributes search) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts?" + SearchQuery(search));
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people&" + SearchQuery(search));
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contacts>(response.Content.ReadAsStream());
             return result;
