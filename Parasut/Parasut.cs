@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Reflection;
 using System.Text;
@@ -1148,13 +1147,8 @@ namespace Parasut {
             }
         }
         public Response.Contacts SearchContact(Request.Contact.ContactData.ContactAttributes search) {
-            var query = new NameValueCollection();
-            if (!string.IsNullOrEmpty(search.TaxNumber)) {
-                query.Add("filter[tax_number]", search.TaxNumber);
-            }
-            query.Add("include", "category,contact_portal,contact_people");
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts" + (query.HasKeys() ? ("?" + query.ToString()) : string.Empty));
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts?" + SearchQuery(search));
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contacts>(response.Content.ReadAsStream());
             return result;
@@ -1294,6 +1288,9 @@ namespace Parasut {
         }
         public static string QueryString<T>(T data) where T : class {
             return string.Join("&", typeof(T).GetProperties().Where(p => p.GetValue(data, null) != null).Select(p => $"{p.GetCustomAttribute<JsonPropertyNameAttribute>().Name}={p.GetValue(data)}"));
+        }
+        public static string SearchQuery<T>(T data) where T : class {
+            return string.Join("&", typeof(T).GetProperties().Where(p => p.GetValue(data, null) != null).Select(p => $"filter[{p.GetCustomAttribute<JsonPropertyNameAttribute>().Name}]={p.GetValue(data)}"));
         }
         public static string JsonString<T>(T data) where T : class {
             return JsonSerializer.Serialize(data, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, WriteIndented = true });
