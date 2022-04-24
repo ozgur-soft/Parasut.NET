@@ -49,6 +49,31 @@ namespace Parasut {
 }
 ```
 
+# Müşteri/Tedarikçi arama
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            var auth = parasut.Authentication();
+            if (auth) {
+                var contacts = parasut.SearchContact(new() {
+                    TaxNumber = "Vergi numarası",
+                });
+                if (contacts != null) {
+                    Console.WriteLine(Parasut.JsonString<Parasut.Response.Contacts>(contacts));
+                }
+            }
+        }
+    }
+}
+```
+
 # Peşin satış faturası oluşturma
 ```c#
 namespace Parasut {
