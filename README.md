@@ -108,21 +108,21 @@ namespace Parasut {
                             },
                             Details = new() {
                                 Data = new Parasut.Request.SalesInvoiceData.SalesInvoiceDetailsData[] {
-                                new(){
-                                    Attributes = new() {
-                                        Quantity = "1", // Ürün miktarı
-                                        UnitPrice = "1.00", // Ürün birim fiyatı (KDV hariç)
-                                        VatRate = "18" // Ürün KDV oranı
-                                    },
-                                    Relationships = new() {
-                                        Product = new() {
-                                            Data = new() {
-                                                Id = "" // Paraşüt Ürün ID (zorunlu)
+                                    new(){
+                                        Attributes = new() {
+                                            Quantity = "1", // Ürün miktarı
+                                            UnitPrice = "1.00", // Ürün birim fiyatı (KDV hariç)
+                                            VatRate = "18" // Ürün KDV oranı
+                                        },
+                                        Relationships = new() {
+                                            Product = new() {
+                                                Data = new() {
+                                                    Id = "" // Paraşüt Ürün ID (zorunlu)
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
                             }
                         }
                     }
