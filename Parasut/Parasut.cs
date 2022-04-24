@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Collections.Specialized;
+using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Reflection;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Parasut {
         void SetUsername(string username);
         void SetPassword(string password);
         bool Authentication();
-        Parasut.Response.SalesInvoice CreateSalesInvoice(Parasut.Request.SalesInvoice data);
+        Parasut.Response.SalesInvoice CreateSalesInvoice(Parasut.Request.SalesInvoice invoice);
         Parasut.Response.SalesInvoice ShowSalesInvoice(string id);
         Parasut.Response.SalesInvoice DeleteSalesInvoice(string id);
         Parasut.Response.SalesInvoice RecoverSalesInvoice(string id);
@@ -21,11 +22,12 @@ namespace Parasut {
         Parasut.Response.SalesInvoice UnarchiveSalesInvoice(string id);
         Parasut.Response.SalesInvoice CancelSalesInvoice(string id);
         Parasut.Response.SalesInvoice ConvertSalesInvoice(string id);
-        Parasut.Response.Contact CreateContact(Parasut.Request.Contact data);
+        Parasut.Response.Contacts SearchContact(Parasut.Request.Contact search);
+        Parasut.Response.Contact CreateContact(Parasut.Request.Contact contact);
         Parasut.Response.Contact ShowContact(string id);
         Parasut.Response.Contact DeleteContact(string id);
-        Parasut.Response.EArchive CreateEArchive(Parasut.Request.EArchive data);
-        Parasut.Response.EInvoice CreateEInvoice(Parasut.Request.EInvoice data);
+        Parasut.Response.EArchive CreateEArchive(Parasut.Request.EArchive earchive);
+        Parasut.Response.EInvoice CreateEInvoice(Parasut.Request.EInvoice einvoice);
         Parasut.Response.EArchive ShowEArchive(string id);
         Parasut.Response.EInvoice ShowEInvoice(string id);
         Parasut.Response.EArchivePDF ShowEArchivePDF(string id);
@@ -550,6 +552,12 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public ContactData Data { init; get; }
+            }
+            public class Contacts : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public ContactData[] Data { init; get; }
             }
             public class ContactData : Contact {
                 [JsonPropertyName("id")]
@@ -1139,9 +1147,21 @@ namespace Parasut {
                 return true;
             }
         }
-        public Response.Contact CreateContact(Request.Contact data) {
+        public Response.Contacts SearchContact(Request.Contact search) {
+            var query = new NameValueCollection();
+            if (!string.IsNullOrEmpty(search.Data.Attributes.TaxNumber)) {
+                query.Add("filter[tax_number]", search.Data.Attributes.TaxNumber);
+            }
+            query.Add("include", "category,contact_portal,contact_people");
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts" + (query.HasKeys() ? ("?" + query.ToString()) : string.Empty));
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Contacts>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Contact CreateContact(Request.Contact contact) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(contact), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
@@ -1160,9 +1180,9 @@ namespace Parasut {
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice data) {
+        public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice invoice) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
@@ -1216,16 +1236,16 @@ namespace Parasut {
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.EArchive CreateEArchive(Request.EArchive data) {
+        public Response.EArchive CreateEArchive(Request.EArchive earchive) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_archives") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_archives") { Content = new StringContent(JsonString(earchive), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EArchive>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.EInvoice CreateEInvoice(Request.EInvoice data) {
+        public Response.EInvoice CreateEInvoice(Request.EInvoice einvoice) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_invoices") { Content = new StringContent(JsonString(data), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_invoices") { Content = new StringContent(JsonString(einvoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoice>(response.Content.ReadAsStream());
             return result;
