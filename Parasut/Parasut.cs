@@ -22,7 +22,7 @@ namespace Parasut {
         Parasut.Response.SalesInvoice UnarchiveSalesInvoice(string id);
         Parasut.Response.SalesInvoice CancelSalesInvoice(string id);
         Parasut.Response.SalesInvoice ConvertSalesInvoice(string id);
-        Parasut.Response.Contacts SearchContact(Parasut.Request.Contact search);
+        Parasut.Response.Contacts SearchContact(Parasut.Request.Contact.ContactData.ContactAttributes search);
         Parasut.Response.Contact CreateContact(Parasut.Request.Contact contact);
         Parasut.Response.Contact ShowContact(string id);
         Parasut.Response.Contact DeleteContact(string id);
@@ -1147,10 +1147,10 @@ namespace Parasut {
                 return true;
             }
         }
-        public Response.Contacts SearchContact(Request.Contact search) {
+        public Response.Contacts SearchContact(Request.Contact.ContactData.ContactAttributes search) {
             var query = new NameValueCollection();
-            if (!string.IsNullOrEmpty(search.Data.Attributes.TaxNumber)) {
-                query.Add("filter[tax_number]", search.Data.Attributes.TaxNumber);
+            if (!string.IsNullOrEmpty(search.TaxNumber)) {
+                query.Add("filter[tax_number]", search.TaxNumber);
             }
             query.Add("include", "category,contact_portal,contact_people");
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
