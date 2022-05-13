@@ -263,3 +263,32 @@ namespace Parasut {
     }
 }
 ```
+
+# Satış faturasının tahsilatlarını silme
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            var auth = parasut.Authentication();
+            if (auth) {
+                var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
+                if (invoice != null) {
+                    var transactions = invoice.Included.Where(included => included.Type == "transactions");
+                    foreach (var transaction in transactions) {
+                        var response = parasut.DeleteTransaction(transaction.Id);
+                        if (response != null) {
+                            Console.WriteLine(Parasut.JsonString<Parasut.Response.Transaction>(response));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
