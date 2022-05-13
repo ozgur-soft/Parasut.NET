@@ -5,7 +5,7 @@ An easy-to-use parasut.com API (v4) with .NET
 
 # Installation
 ```bash
-dotnet add package Parasut --version 1.2.0
+dotnet add package Parasut --version 1.2.1
 ```
 
 # Müşteri/Tedarikçi oluşturma
@@ -206,6 +206,35 @@ namespace Parasut {
 }
 ```
 
+# Satış faturasının tahsilatlarını silme
+```c#
+namespace Parasut {
+    internal class Program {
+        static void Main(string[] args) {
+            var parasut = new Parasut();
+            parasut.SetCompanyId("API company id");
+            parasut.SetClientId("API client id");
+            parasut.SetClientSecret("API client secret");
+            parasut.SetUsername("API username");
+            parasut.SetPassword("API password");
+            var auth = parasut.Authentication();
+            if (auth) {
+                var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
+                if (invoice != null) {
+                    var transactions = invoice.Included.Where(included => included.Type == "transactions");
+                    foreach (var transaction in transactions) {
+                        var response = parasut.DeleteTransaction(transaction.Id);
+                        if (response != null) {
+                            Console.WriteLine(Parasut.JsonString<Parasut.Response.Transaction>(response));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
 # E-arşiv/E-fatura pdf adresi görüntüleme
 ```c#
 namespace Parasut {
@@ -256,35 +285,6 @@ namespace Parasut {
                     if (invoice.Data.Relationships.ActiveEDocument.Data.Type == "e_archives") {
                         var response = parasut.CancelSalesInvoice(invoice.Data.Id);
                         Console.WriteLine(Parasut.JsonString<Parasut.Response.SalesInvoice>(response));
-                    }
-                }
-            }
-        }
-    }
-}
-```
-
-# Satış faturasının tahsilatlarını silme
-```c#
-namespace Parasut {
-    internal class Program {
-        static void Main(string[] args) {
-            var parasut = new Parasut();
-            parasut.SetCompanyId("API company id");
-            parasut.SetClientId("API client id");
-            parasut.SetClientSecret("API client secret");
-            parasut.SetUsername("API username");
-            parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
-            if (auth) {
-                var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
-                if (invoice != null) {
-                    var transactions = invoice.Included.Where(included => included.Type == "transactions");
-                    foreach (var transaction in transactions) {
-                        var response = parasut.DeleteTransaction(transaction.Id);
-                        if (response != null) {
-                            Console.WriteLine(Parasut.JsonString<Parasut.Response.Transaction>(response));
-                        }
                     }
                 }
             }
