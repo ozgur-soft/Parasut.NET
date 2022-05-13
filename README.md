@@ -223,10 +223,7 @@ namespace Parasut {
                 if (invoice != null) {
                     var transactions = invoice.Included.Where(included => included.Type == "transactions");
                     foreach (var transaction in transactions) {
-                        var response = parasut.DeleteTransaction(transaction.Id);
-                        if (response != null) {
-                            Console.WriteLine(Parasut.JsonString<Parasut.Response.Transaction>(response));
-                        }
+                        parasut.DeleteTransaction(transaction.Id);
                     }
                 }
             }
