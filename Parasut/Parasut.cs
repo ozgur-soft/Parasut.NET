@@ -16,17 +16,17 @@ namespace Parasut {
         Parasut.Response.SalesInvoice CreateSalesInvoice(Parasut.Request.SalesInvoice invoice);
         Parasut.Response.SalesInvoice UpdateSalesInvoice(string id, Parasut.Request.SalesInvoice invoice);
         Parasut.Response.SalesInvoice ShowSalesInvoice(string id);
-        Parasut.Response.SalesInvoice DeleteSalesInvoice(string id);
         Parasut.Response.SalesInvoice RecoverSalesInvoice(string id);
         Parasut.Response.SalesInvoice ArchiveSalesInvoice(string id);
         Parasut.Response.SalesInvoice UnarchiveSalesInvoice(string id);
         Parasut.Response.SalesInvoice CancelSalesInvoice(string id);
         Parasut.Response.SalesInvoice ConvertSalesInvoice(string id);
+        void DeleteSalesInvoice(string id);
         Parasut.Response.Contacts SearchContact(Parasut.Request.Contact.ContactData.ContactAttributes search);
         Parasut.Response.Contact CreateContact(Parasut.Request.Contact contact);
         Parasut.Response.Contact UpdateContact(string id, Parasut.Request.Contact contact);
         Parasut.Response.Contact ShowContact(string id);
-        Parasut.Response.Contact DeleteContact(string id);
+        void DeleteContact(string id);
         Parasut.Response.EArchive CreateEArchive(Parasut.Request.EArchive earchive);
         Parasut.Response.EInvoice CreateEInvoice(Parasut.Request.EInvoice einvoice);
         Parasut.Response.EArchive ShowEArchive(string id);
@@ -35,7 +35,7 @@ namespace Parasut {
         Parasut.Response.EInvoicePDF ShowEInvoicePDF(string id);
         Parasut.Response.EInvoiceInboxes ListEInvoiceInboxes(string vkn);
         Parasut.Response.Transaction ShowTransaction(string id);
-        Parasut.Response.Transaction DeleteTransaction(string id);
+        void DeleteTransaction(string id);
     }
     public class Parasut : IParasut {
         private string Endpoint { get; set; }
@@ -1280,12 +1280,11 @@ namespace Parasut {
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.Contact DeleteContact(string id) {
+        public void DeleteContact(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
             var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/contacts/" + id);
-            var response = http.Send(request);
-            var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
-            return result;
+            http.Send(request);
+            return;
         }
         public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice invoice) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
@@ -1308,12 +1307,11 @@ namespace Parasut {
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.SalesInvoice DeleteSalesInvoice(string id) {
+        public void DeleteSalesInvoice(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
             var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
-            var response = http.Send(request);
-            var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
-            return result;
+            http.Send(request);
+            return;
         }
         public Response.SalesInvoice CancelSalesInvoice(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
@@ -1406,12 +1404,11 @@ namespace Parasut {
             var result = JsonSerializer.Deserialize<Response.Transaction>(response.Content.ReadAsStream());
             return result;
         }
-        public Response.Transaction DeleteTransaction(string id) {
+        public void DeleteTransaction(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
             var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/transactions/" + id);
-            var response = http.Send(request);
-            var result = JsonSerializer.Deserialize<Response.Transaction>(response.Content.ReadAsStream());
-            return result;
+            http.Send(request);
+            return;
         }
         public Response.TrackableJob TrackJob(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
