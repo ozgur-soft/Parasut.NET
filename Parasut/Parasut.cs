@@ -555,6 +555,8 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public ContactData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
             }
             public class Contacts : Response {
                 [JsonPropertyName("errors")]
@@ -567,6 +569,8 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public SalesInvoiceData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
             }
             public class SalesInvoices : Response {
                 [JsonPropertyName("errors")]
@@ -579,12 +583,16 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public EArchiveData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
             }
             public class EInvoice : Response {
                 [JsonPropertyName("errors")]
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public EInvoiceData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
             }
             public class EArchivePDF : Response {
                 [JsonPropertyName("errors")]
@@ -609,12 +617,24 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public TransactionData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
             }
             public class TrackableJob : Response {
                 [JsonPropertyName("errors")]
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public TrackableJobData Data { init; get; }
+            }
+            public class IncludedData : Response {
+                [JsonPropertyName("id")]
+                public string Id { init; get; }
+                [JsonPropertyName("type")]
+                public string Type { init; get; }
+                [JsonPropertyName("attributes")]
+                public object Attributes { init; get; }
+                [JsonPropertyName("relationships")]
+                public object Relationships { init; get; }
             }
             public class ContactData : Contact {
                 [JsonPropertyName("id")]
