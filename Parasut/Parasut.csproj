@@ -5,6 +5,7 @@
 		<Authors>Özgür Yalçın</Authors>
 		<Company>Özgürsoft</Company>
 		<Copyright>2022 Özgürsoft</Copyright>
+		<Description>An easy-to-use parasut.com API (v4) with .NET</Description>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
