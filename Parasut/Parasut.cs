@@ -34,6 +34,8 @@ namespace Parasut {
         Parasut.Response.EArchivePDF ShowEArchivePDF(string id);
         Parasut.Response.EInvoicePDF ShowEInvoicePDF(string id);
         Parasut.Response.EInvoiceInboxes ListEInvoiceInboxes(string vkn);
+        Parasut.Response.Transaction ShowTransaction(string id);
+        Parasut.Response.Transaction DeleteTransaction(string id);
     }
     public class Parasut : IParasut {
         private string Endpoint { get; set; }
@@ -68,6 +70,14 @@ namespace Parasut {
             public class SalesInvoice : Request {
                 [JsonPropertyName("data")]
                 public SalesInvoiceData Data { init; get; }
+            }
+            public class EArchive : Request {
+                [JsonPropertyName("data")]
+                public EArchiveData Data { init; get; }
+            }
+            public class EInvoice : Request {
+                [JsonPropertyName("data")]
+                public EInvoiceData Data { init; get; }
             }
             public class ContactData : Contact {
                 public ContactData() {
@@ -372,10 +382,6 @@ namespace Parasut {
                     public string Type { init; get; }
                 }
             }
-            public class EArchive : Request {
-                [JsonPropertyName("data")]
-                public EArchiveData Data { init; get; }
-            }
             public class EArchiveData : EArchive {
                 public EArchiveData() {
                     Type = "e_archives";
@@ -449,10 +455,6 @@ namespace Parasut {
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
-            }
-            public class EInvoice : Request {
-                [JsonPropertyName("data")]
-                public EInvoiceData Data { init; get; }
             }
             public class EInvoiceData : EInvoice {
                 public EInvoiceData() {
@@ -560,6 +562,60 @@ namespace Parasut {
                 [JsonPropertyName("data")]
                 public ContactData[] Data { init; get; }
             }
+            public class SalesInvoice : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public SalesInvoiceData Data { init; get; }
+            }
+            public class SalesInvoices : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public SalesInvoiceData[] Data { init; get; }
+            }
+            public class EArchive : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EArchiveData Data { init; get; }
+            }
+            public class EInvoice : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EInvoiceData Data { init; get; }
+            }
+            public class EArchivePDF : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EArchivePDFData Data { init; get; }
+            }
+            public class EInvoicePDF : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EInvoicePDFData Data { init; get; }
+            }
+            public class EInvoiceInboxes : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public List<EInvoiceInboxesData> Data { init; get; }
+            }
+            public class Transaction : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public TransactionData Data { init; get; }
+            }
+            public class TrackableJob : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public TrackableJobData Data { init; get; }
+            }
             public class ContactData : Contact {
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
@@ -657,12 +713,6 @@ namespace Parasut {
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
-            }
-            public class SalesInvoice : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public SalesInvoiceData Data { init; get; }
             }
             public class SalesInvoiceData : SalesInvoice {
                 [JsonPropertyName("id")]
@@ -872,12 +922,6 @@ namespace Parasut {
                     public string Type { init; get; }
                 }
             }
-            public class EArchive : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public EArchiveData Data { init; get; }
-            }
             public class EArchiveData : EArchive {
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
@@ -931,12 +975,6 @@ namespace Parasut {
                     [JsonPropertyName("type")]
                     public string Type { init; get; }
                 }
-            }
-            public class EInvoice : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public EInvoiceData Data { init; get; }
             }
             public class EInvoiceData : EInvoice {
                 [JsonPropertyName("id")]
@@ -1020,12 +1058,6 @@ namespace Parasut {
                     public string Type { init; get; }
                 }
             }
-            public class EArchivePDF : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public EArchivePDFData Data { init; get; }
-            }
             public class EArchivePDFData : EArchivePDF {
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
@@ -1040,12 +1072,6 @@ namespace Parasut {
                     public string ExpiresAt { init; get; }
                 }
             }
-            public class EInvoicePDF : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public EInvoicePDFData Data { init; get; }
-            }
             public class EInvoicePDFData : EInvoicePDF {
                 [JsonPropertyName("id")]
                 public string Id { init; get; }
@@ -1059,12 +1085,6 @@ namespace Parasut {
                     [JsonPropertyName("expires_at")]
                     public string ExpiresAt { init; get; }
                 }
-            }
-            public class EInvoiceInboxes : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public List<EInvoiceInboxesData> Data { init; get; }
             }
             public class EInvoiceInboxesData : EInvoiceInboxes {
                 [JsonPropertyName("id")]
@@ -1092,11 +1112,75 @@ namespace Parasut {
                     public string UpdatedAt { init; get; }
                 }
             }
-            public class TrackableJob : Response {
-                [JsonPropertyName("errors")]
-                public List<ResponseError> Errors { init; get; }
-                [JsonPropertyName("data")]
-                public TrackableJobData Data { init; get; }
+            public class TransactionData : Transaction {
+                [JsonPropertyName("id")]
+                public string Id { init; get; }
+                [JsonPropertyName("type")]
+                public string Type { init; get; }
+                [JsonPropertyName("attributes")]
+                public TransactionAttributes Attributes { init; get; }
+                [JsonPropertyName("relationships")]
+                public TransactionRelationships Relationships { init; get; }
+                public class TransactionAttributes {
+                    [JsonPropertyName("description")]
+                    public string Description { init; get; }
+                    [JsonPropertyName("transaction_type")]
+                    public string Type { init; get; }
+                    [JsonPropertyName("date")]
+                    public string Date { init; get; }
+                    [JsonPropertyName("amount_in_trl")]
+                    public string AmountInTrl { init; get; }
+                    [JsonPropertyName("debit_amount")]
+                    public string DebitAmount { init; get; }
+                    [JsonPropertyName("debit_currency")]
+                    public string DebitCurrency { init; get; }
+                    [JsonPropertyName("credit_amount")]
+                    public string CreditAmount { init; get; }
+                    [JsonPropertyName("credit_currency")]
+                    public string CreditCurrency { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class TransactionRelationships {
+                    [JsonPropertyName("debit_account")]
+                    public TransactionDebitAccount DebitAccount { get; set; }
+                    [JsonPropertyName("credit_account")]
+                    public TransactionCreditAccount CreditAccount { get; set; }
+                    [JsonPropertyName("payments")]
+                    public TransactionPayments Payments { get; set; }
+                }
+                public class TransactionDebitAccount {
+                    [JsonPropertyName("data")]
+                    public TransactionDebitAccountData Data { init; get; }
+                }
+                public class TransactionDebitAccountData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class TransactionCreditAccount {
+                    [JsonPropertyName("data")]
+                    public TransactionCreditAccountData Data { init; get; }
+                }
+                public class TransactionCreditAccountData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class TransactionPayments {
+                    [JsonPropertyName("data")]
+                    public TransactionPaymentsData[] Data { init; get; }
+                }
+                public class TransactionPaymentsData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
             }
             public class TrackableJobData : TrackableJob {
                 [JsonPropertyName("id")]
@@ -1185,21 +1269,21 @@ namespace Parasut {
         }
         public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice invoice) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice UpdateSalesInvoice(string id, Request.SalesInvoice invoice) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice ShowSalesInvoice(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,payments,tags,sharings,recurrence_plan,active_e_document");
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document");
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
@@ -1293,6 +1377,20 @@ namespace Parasut {
             var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoice_inboxes?filter[vkn]=" + vkn);
             var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoiceInboxes>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Transaction ShowTransaction(string id) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/transactions/" + id + "?include=debit_account,credit_account,payments");
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Transaction>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Transaction DeleteTransaction(string id) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/transactions/" + id);
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Transaction>(response.Content.ReadAsStream());
             return result;
         }
         public Response.TrackableJob TrackJob(string id) {
