@@ -19,7 +19,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var contact = new Parasut.Request.Contact {
                     Data = new() {
@@ -60,7 +60,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var contacts = parasut.SearchContact(new() {
                     TaxNumber = "Vergi numarası",
@@ -85,7 +85,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var invoice = new Parasut.Request.SalesInvoice {
                     Data = new() {
@@ -146,7 +146,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
                 if (invoice != null) {
@@ -217,7 +217,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
                 if (invoice != null) {
@@ -243,7 +243,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
                 if (invoice != null) {
@@ -275,7 +275,7 @@ namespace Parasut {
             parasut.SetClientSecret("API client secret");
             parasut.SetUsername("API username");
             parasut.SetPassword("API password");
-            var auth = parasut.Authentication();
+            var auth = parasut.Authorize();
             if (auth) {
                 var invoice = parasut.ShowSalesInvoice("Paraşüt Fatura ID");
                 if (invoice != null) {
