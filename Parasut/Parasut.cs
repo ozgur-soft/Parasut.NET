@@ -12,7 +12,17 @@ namespace Parasut {
         void SetClientSecret(string clientsecret);
         void SetUsername(string username);
         void SetPassword(string password);
-        bool Authentication();
+        bool Authorize();
+        Parasut.Response.Contacts SearchContact(Parasut.Request.Contact.ContactData.ContactAttributes search);
+        Parasut.Response.Contact CreateContact(Parasut.Request.Contact contact);
+        Parasut.Response.Contact UpdateContact(string id, Parasut.Request.Contact contact);
+        Parasut.Response.Contact ShowContact(string id);
+        void DeleteContact(string id);
+        Parasut.Response.Employees SearchEmployee(Parasut.Request.Employee.EmployeeData.EmployeeAttributes search);
+        Parasut.Response.Employee CreateEmployee(Parasut.Request.Employee employee);
+        Parasut.Response.Employee UpdateEmployee(string id, Parasut.Request.Employee employee);
+        Parasut.Response.Employee ShowEmployee(string id);
+        void DeleteEmployee(string id);
         Parasut.Response.SalesInvoice CreateSalesInvoice(Parasut.Request.SalesInvoice invoice);
         Parasut.Response.SalesInvoice UpdateSalesInvoice(string id, Parasut.Request.SalesInvoice invoice);
         Parasut.Response.SalesInvoice ShowSalesInvoice(string id);
@@ -22,11 +32,6 @@ namespace Parasut {
         Parasut.Response.SalesInvoice CancelSalesInvoice(string id);
         Parasut.Response.SalesInvoice ConvertSalesInvoice(string id);
         void DeleteSalesInvoice(string id);
-        Parasut.Response.Contacts SearchContact(Parasut.Request.Contact.ContactData.ContactAttributes search);
-        Parasut.Response.Contact CreateContact(Parasut.Request.Contact contact);
-        Parasut.Response.Contact UpdateContact(string id, Parasut.Request.Contact contact);
-        Parasut.Response.Contact ShowContact(string id);
-        void DeleteContact(string id);
         Parasut.Response.EArchive CreateEArchive(Parasut.Request.EArchive earchive);
         Parasut.Response.EInvoice CreateEInvoice(Parasut.Request.EInvoice einvoice);
         Parasut.Response.EArchive ShowEArchive(string id);
@@ -49,7 +54,7 @@ namespace Parasut {
             Endpoint = "https://api.parasut.com/v4/";
         }
         public class Request {
-            public class Authentication : Request {
+            public class Authorize : Request {
                 [JsonPropertyName("client_id")]
                 public string ClientId { init; get; }
                 [JsonPropertyName("client_secret")]
@@ -66,6 +71,10 @@ namespace Parasut {
             public class Contact : Request {
                 [JsonPropertyName("data")]
                 public ContactData Data { init; get; }
+            }
+            public class Employee : Request {
+                [JsonPropertyName("data")]
+                public EmployeeData Data { init; get; }
             }
             public class SalesInvoice : Request {
                 [JsonPropertyName("data")]
@@ -170,6 +179,46 @@ namespace Parasut {
                     public string Phone { init; get; }
                     [JsonPropertyName("notes")]
                     public string Notes { init; get; }
+                }
+            }
+            public class EmployeeData : Employee {
+                public EmployeeData() {
+                    Type = "employees";
+                }
+                [JsonPropertyName("id")]
+                public string Id { init; get; }
+                [JsonPropertyName("type")]
+                public string Type { init; get; }
+                [JsonPropertyName("attributes")]
+                public EmployeeAttributes Attributes { init; get; }
+                [JsonPropertyName("relationships")]
+                public EmployeeRelationships Relationships { init; get; }
+                public class EmployeeAttributes {
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                }
+                public class EmployeeRelationships {
+                    [JsonPropertyName("category")]
+                    public EmployeeCategory EmployeeCategory { get; set; }
+                }
+                public class EmployeeCategory {
+                    [JsonPropertyName("data")]
+                    public EmployeeCategoryData Data { init; get; }
+                }
+                public class EmployeeCategoryData {
+                    public EmployeeCategoryData() {
+                        Type = "item_categories";
+                    }
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
                 }
             }
             public class SalesInvoiceData : SalesInvoice {
@@ -534,7 +583,7 @@ namespace Parasut {
             }
         }
         public class Response {
-            public class Authentication : Response {
+            public class Authorize : Response {
                 [JsonPropertyName("token_type")]
                 public string TokenType { init; get; }
                 [JsonPropertyName("access_token")]
@@ -563,6 +612,20 @@ namespace Parasut {
                 public List<ResponseError> Errors { init; get; }
                 [JsonPropertyName("data")]
                 public ContactData[] Data { init; get; }
+            }
+            public class Employee : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EmployeeData Data { init; get; }
+                [JsonPropertyName("included")]
+                public IncludedData[] Included { init; get; }
+            }
+            public class Employees : Response {
+                [JsonPropertyName("errors")]
+                public List<ResponseError> Errors { init; get; }
+                [JsonPropertyName("data")]
+                public EmployeeData[] Data { init; get; }
             }
             public class SalesInvoice : Response {
                 [JsonPropertyName("errors")]
@@ -728,6 +791,78 @@ namespace Parasut {
                     public string Type { init; get; }
                 }
                 public class ContactPeopleData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+            }
+            public class EmployeeData : Employee {
+                [JsonPropertyName("id")]
+                public string Id { init; get; }
+                [JsonPropertyName("type")]
+                public string Type { init; get; }
+                [JsonPropertyName("attributes")]
+                public EmployeeAttributes Attributes { init; get; }
+                [JsonPropertyName("relationships")]
+                public EmployeeRelationships Relationships { init; get; }
+                public class EmployeeAttributes {
+                    [JsonPropertyName("balance")]
+                    public string Balance { init; get; }
+                    [JsonPropertyName("trl_balance")]
+                    public string TRLBalance { init; get; }
+                    [JsonPropertyName("usd_balance")]
+                    public string USDBalance { init; get; }
+                    [JsonPropertyName("eur_balance")]
+                    public string EURBalance { init; get; }
+                    [JsonPropertyName("gbp_balance")]
+                    public string GBPBalance { init; get; }
+                    [JsonPropertyName("email")]
+                    public string Email { init; get; }
+                    [JsonPropertyName("name")]
+                    public string Name { init; get; }
+                    [JsonPropertyName("iban")]
+                    public string IBAN { init; get; }
+                    [JsonPropertyName("archived")]
+                    public bool? Archived { init; get; }
+                    [JsonPropertyName("created_at")]
+                    public string CreatedAt { init; get; }
+                    [JsonPropertyName("updated_at")]
+                    public string UpdatedAt { init; get; }
+                }
+                public class EmployeeRelationships {
+                    [JsonPropertyName("category")]
+                    public EmployeeCategory EmployeeCategory { get; set; }
+                    [JsonPropertyName("managed_by_user")]
+                    public ManagedByUser ManagedByUser { get; set; }
+                    [JsonPropertyName("managed_by_user_role")]
+                    public ManagedByUserRole ManagedByUserRole { get; set; }
+                }
+                public class EmployeeCategory {
+                    [JsonPropertyName("data")]
+                    public EmployeeCategoryData Data { init; get; }
+                }
+                public class ManagedByUser {
+                    [JsonPropertyName("data")]
+                    public ManagedByUserData Data { init; get; }
+                }
+                public class ManagedByUserRole {
+                    [JsonPropertyName("data")]
+                    public ManagedByUserRoleData Data { init; get; }
+                }
+                public class EmployeeCategoryData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class ManagedByUserData {
+                    [JsonPropertyName("id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("type")]
+                    public string Type { init; get; }
+                }
+                public class ManagedByUserRoleData {
                     [JsonPropertyName("id")]
                     public string Id { init; get; }
                     [JsonPropertyName("type")]
@@ -1238,14 +1373,14 @@ namespace Parasut {
         public void SetPassword(string password) {
             Password = password;
         }
-        public bool Authentication() {
+        public bool Authorize() {
             var http = new HttpClient();
-            var data = new Request.Authentication { ClientId = ClientId, ClientSecret = ClientSecret, Username = Username, Password = Password, GrantType = "password", RedirectURI = "urn:ietf:wg:oauth:2.0:oob" };
+            var data = new Request.Authorize { ClientId = ClientId, ClientSecret = ClientSecret, Username = Username, Password = Password, GrantType = "password", RedirectURI = "urn:ietf:wg:oauth:2.0:oob" };
             var request = new HttpRequestMessage(HttpMethod.Post, "https://api.parasut.com/oauth/token") { Content = new StringContent(QueryString(data), Encoding.UTF8, "application/x-www-form-urlencoded") };
             var response = http.Send(request);
-            var result = JsonSerializer.Deserialize<Response.Authentication>(response.Content.ReadAsStream());
+            var result = JsonSerializer.Deserialize<Response.Authorize>(response.Content.ReadAsStream());
             if (result.Errors != null) {
-                Console.WriteLine(JsonString<Response.Authentication>(result));
+                Console.WriteLine(JsonString<Response.Authorize>(result));
                 return false;
             } else {
                 Token = result.AccessToken;
@@ -1283,6 +1418,40 @@ namespace Parasut {
         public void DeleteContact(string id) {
             var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
             var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/contacts/" + id);
+            http.Send(request);
+            return;
+        }
+        public Response.Employees SearchEmployee(Request.Employee.EmployeeData.EmployeeAttributes search) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role&" + SearchQuery(search));
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Employees>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Employee CreateEmployee(Request.Employee employee) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Employee UpdateEmployee(string id, Request.Employee employee) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Put, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
+            return result;
+        }
+        public Response.Employee ShowEmployee(string id) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role");
+            var response = http.Send(request);
+            var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
+            return result;
+        }
+        public void DeleteEmployee(string id) {
+            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/employees/" + id);
             http.Send(request);
             return;
         }
