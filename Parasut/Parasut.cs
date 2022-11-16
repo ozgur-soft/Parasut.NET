@@ -40,6 +40,7 @@ namespace Parasut {
         Parasut.Response.EInvoicePDF ShowEInvoicePDF(string id);
         Parasut.Response.EInvoiceInboxes ListEInvoiceInboxes(string vkn);
         Parasut.Response.Transaction ShowTransaction(string id);
+        Parasut.Response.TrackableJob TrackJob(string id);
         void DeleteTransaction(string id);
     }
     public class Parasut : IParasut {
