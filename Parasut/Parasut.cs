@@ -1375,10 +1375,10 @@ namespace Parasut {
             Password = password;
         }
         public bool Authorize() {
-            var http = new HttpClient();
+            using var http = new HttpClient();
             var data = new Request.Authorize { ClientId = ClientId, ClientSecret = ClientSecret, Username = Username, Password = Password, GrantType = "password", RedirectURI = "urn:ietf:wg:oauth:2.0:oob" };
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://api.parasut.com/oauth/token") { Content = new StringContent(QueryString(data), Encoding.UTF8, "application/x-www-form-urlencoded") };
-            var response = http.Send(request);
+            using var request = new HttpRequestMessage(HttpMethod.Post, "https://api.parasut.com/oauth/token") { Content = new StringContent(QueryString(data), Encoding.UTF8, "application/x-www-form-urlencoded") };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Authorize>(response.Content.ReadAsStream());
             if (result.Errors != null) {
                 Console.WriteLine(JsonString<Response.Authorize>(result));
@@ -1389,201 +1389,201 @@ namespace Parasut {
             }
         }
         public Response.Contacts SearchContact(Request.Contact.ContactData.ContactAttributes search) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people&" + SearchQuery(search));
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people&" + SearchQuery(search));
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contacts>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Contact CreateContact(Request.Contact contact) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(contact), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/contacts?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(contact), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Contact UpdateContact(string id, Request.Contact contact) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Put, Endpoint + CompanyId + "/contacts/" + id + "?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(contact), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Put, Endpoint + CompanyId + "/contacts/" + id + "?include=category,contact_portal,contact_people") { Content = new StringContent(JsonString(contact), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Contact ShowContact(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts/" + id + "?include=category,contact_portal,contact_people");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/contacts/" + id + "?include=category,contact_portal,contact_people");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Contact>(response.Content.ReadAsStream());
             return result;
         }
         public void DeleteContact(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/contacts/" + id);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/contacts/" + id);
             http.Send(request);
             return;
         }
         public Response.Employees SearchEmployee(Request.Employee.EmployeeData.EmployeeAttributes search) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role&" + SearchQuery(search));
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role&" + SearchQuery(search));
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Employees>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Employee CreateEmployee(Request.Employee employee) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/employees?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Employee UpdateEmployee(string id, Request.Employee employee) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Put, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Put, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role") { Content = new StringContent(JsonString(employee), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Employee ShowEmployee(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/employees/" + id + "?include=category,managed_by_user,managed_by_user_role");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Employee>(response.Content.ReadAsStream());
             return result;
         }
         public void DeleteEmployee(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/employees/" + id);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/employees/" + id);
             http.Send(request);
             return;
         }
         public Response.SalesInvoice CreateSalesInvoice(Request.SalesInvoice invoice) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice UpdateSalesInvoice(string id, Request.SalesInvoice invoice) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document") { Content = new StringContent(JsonString(invoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice ShowSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/sales_invoices/" + id + "?include=category,contact,details,details.product,details.warehouse,payments,payments.transaction,tags,sharings,recurrence_plan,active_e_document");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public void DeleteSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id);
             http.Send(request);
             return;
         }
         public Response.SalesInvoice CancelSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/cancel");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/sales_invoices/" + id + "/cancel");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice RecoverSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/recover");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/recover");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice ArchiveSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/archive");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/archive");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice UnarchiveSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/unarchive");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/unarchive");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.SalesInvoice ConvertSalesInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/convert_to_invoice");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Patch, Endpoint + CompanyId + "/sales_invoices/" + id + "/convert_to_invoice");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.SalesInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EArchive CreateEArchive(Request.EArchive earchive) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_archives") { Content = new StringContent(JsonString(earchive), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_archives") { Content = new StringContent(JsonString(earchive), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EArchive>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EInvoice CreateEInvoice(Request.EInvoice einvoice) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_invoices") { Content = new StringContent(JsonString(einvoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Post, Endpoint + CompanyId + "/e_invoices") { Content = new StringContent(JsonString(einvoice), Encoding.UTF8, MediaTypeNames.Application.Json) };
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EArchive ShowEArchive(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id);
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id);
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EArchive>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EInvoice ShowEInvoice(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id);
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id);
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoice>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EArchivePDF ShowEArchivePDF(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id + "/pdf");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_archives/" + id + "/pdf");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EArchivePDF>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EInvoicePDF ShowEInvoicePDF(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id + "/pdf");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoices/" + id + "/pdf");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoicePDF>(response.Content.ReadAsStream());
             return result;
         }
         public Response.EInvoiceInboxes ListEInvoiceInboxes(string vkn) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoice_inboxes?filter[vkn]=" + vkn);
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/e_invoice_inboxes?filter[vkn]=" + vkn);
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.EInvoiceInboxes>(response.Content.ReadAsStream());
             return result;
         }
         public Response.Transaction ShowTransaction(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/transactions/" + id + "?include=debit_account,credit_account,payments");
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/transactions/" + id + "?include=debit_account,credit_account,payments");
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.Transaction>(response.Content.ReadAsStream());
             return result;
         }
         public void DeleteTransaction(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/transactions/" + id);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Delete, Endpoint + CompanyId + "/transactions/" + id);
             http.Send(request);
             return;
         }
         public Response.TrackableJob TrackJob(string id) {
-            var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
-            var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/trackable_jobs/" + id);
-            var response = http.Send(request);
+            using var http = new HttpClient() { DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", Token) } };
+            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + CompanyId + "/trackable_jobs/" + id);
+            using var response = http.Send(request);
             var result = JsonSerializer.Deserialize<Response.TrackableJob>(response.Content.ReadAsStream());
             return result;
         }
