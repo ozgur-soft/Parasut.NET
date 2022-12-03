@@ -1,5 +1,3 @@
-[![license](https://img.shields.io/:license-mit-blue.svg)](https://github.com/ozgur-soft/Parasut.NET/blob/main/LICENSE.md)
-
 # Parasut.NET
 An easy-to-use parasut.com API (v4) with .NET
 
