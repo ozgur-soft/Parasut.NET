@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<Version>1.3.0</Version>
 		<RepositoryUrl>https://github.com/ozgur-soft/Parasut.NET</RepositoryUrl>
-		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Authors>Özgür Yalçın</Authors>
 		<Company>Özgürsoft</Company>
 		<Copyright>2022 Özgürsoft</Copyright>
