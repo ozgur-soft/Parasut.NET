@@ -96,7 +96,7 @@ namespace Parasut {
                             PaymentDate = new DateTime(2022, 02, 20).ToString("yyyy-MM-dd"), // Peşin ödeme tarihi (Yıl-Ay-Gün)
                             PaymentDescription = "", // Peşin ödeme açıklaması
                             PaymentAccountID = "", // Paraşüt Banka ID (zorunlu)
-                            Currency = "TRL" // Para birimi : "TRL", "USD", "EUR", "GBP"
+                            Currency = "TRL", // Para birimi : "TRL", "USD", "EUR", "GBP"
                         },
                         Relationships = new() {
                             Contact = new() {
