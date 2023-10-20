@@ -273,6 +273,8 @@ namespace Parasut {
                     public string TaxOffice { init; get; }
                     [JsonPropertyName("tax_number")]
                     public string TaxNumber { init; get; }
+                    [JsonPropertyName("payer_tax_numbers")]
+                    public List<string> PayerTaxNumbers { init; get; }
                     [JsonPropertyName("country")]
                     public string Country { init; get; }
                     [JsonPropertyName("city")]
@@ -545,14 +547,28 @@ namespace Parasut {
                 public class CustomRequirementParam {
                     [JsonPropertyName("integration")]
                     public CustomIntegration Integration { init; get; }
+                    [JsonPropertyName("products")]
+                    public List<CustomProduct> Products { init; get; }
                 }
                 public class CustomIntegration {
                     [JsonPropertyName("data")]
                     public IntegrationData Data { init; get; }
                 }
+                public class CustomProduct {
+                    [JsonPropertyName("product_id")]
+                    public string Id { init; get; }
+                    [JsonPropertyName("data")]
+                    public ProductData Data { init; get; }
+                }
+                public class ProductData {
+                    [JsonPropertyName("buyer_code")]
+                    public string BuyerCode { init; get; }
+                }
                 public class IntegrationData {
                     [JsonPropertyName("additional_invoice_type")]
                     public string AdditionalInvoiceType { init; get; }
+                    [JsonPropertyName("supplier_code")]
+                    public string SupplierCode { init; get; }
                     [JsonPropertyName("tax_payer_code")]
                     public string TaxPayerCode { init; get; }
                     [JsonPropertyName("tax_payer_name")]
@@ -948,6 +964,8 @@ namespace Parasut {
                     public string TaxOffice { init; get; }
                     [JsonPropertyName("tax_number")]
                     public string TaxNumber { init; get; }
+                    [JsonPropertyName("payer_tax_numbers")]
+                    public List<string> PayerTaxNumbers { init; get; }
                     [JsonPropertyName("country")]
                     public string Country { init; get; }
                     [JsonPropertyName("city")]
