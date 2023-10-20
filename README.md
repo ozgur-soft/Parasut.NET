@@ -3,7 +3,7 @@ An easy-to-use parasut.com API (v4) with .NET
 
 # Installation
 ```bash
-dotnet add package Parasut --version 1.3.0
+dotnet add package Parasut --version 1.3.1
 ```
 
 # Müşteri/Tedarikçi oluşturma
